@@ -1,0 +1,4 @@
+display_name: Stata Regression Workflow
+short_description: Run Stata regressions and inspect logs.
+default_prompt: Use this skill to run, debug, or document Stata regression workflows, including batch do-file execution, log inspection, and result table organization.
+

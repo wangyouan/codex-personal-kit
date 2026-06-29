@@ -42,3 +42,20 @@ memories/local/*
 
 # Script backups
 backups/
+# Generated skill outputs and bulky local artifacts
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.pytest_cache/
+**/.mypy_cache/
+**/node_modules/
+**/dist/
+**/build/
+**/outputs/
+**/artifacts/
+**/*.sqlite
+**/*.sqlite-*
+**/*.db
+**/*.pkl
+**/*.pt
+**/*.onnx
