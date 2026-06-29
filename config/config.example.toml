@@ -1,0 +1,8 @@
+# Example only. Do not commit real secrets or machine-specific auth.
+
+# Keep real Codex configuration local unless you have reviewed it carefully.
+# Prefer documenting portable settings here instead of syncing config.toml directly.
+
+[personal_kit]
+version = 1
+sync_mode = "copy"

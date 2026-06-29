@@ -1,0 +1,44 @@
+# Secrets and machine identity
+auth.json
+cap_sid
+installation_id
+.sandbox-secrets/
+
+# Codex runtime state
+sessions/
+archived_sessions/
+attachments/
+logs_*.sqlite*
+state_*.sqlite*
+goals_*.sqlite*
+memories_*.sqlite*
+session_index.jsonl
+
+# Caches and temporary folders
+cache/
+plugins/cache/
+.tmp/
+tmp/
+.sandbox/
+.sandbox-bin/
+computer-use/
+computer-use-turn-ended/
+process_manager/
+node_repl/
+vendor_imports/
+sqlite/
+
+# Machine-local app state
+.codex-global-state.json*
+models_cache.json
+chrome-native-hosts*.json
+.app-server-state-reconciled-v1
+.personality_migration
+
+# Local-only notes for each computer
+memories/local/*
+!memories/local/.gitkeep
+!memories/local/README.md
+
+# Script backups
+backups/
