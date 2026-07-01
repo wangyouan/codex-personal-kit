@@ -1,31 +1,48 @@
-﻿---
+---
 name: joplin-notes
-description: Search, read, list, and safely update the user's local Joplin notebooks and notes through the Joplin desktop SQLite database. Use when the user asks Codex to access Joplin, find a Joplin notebook or note, search note titles or bodies, read a Joplin note, update an existing Joplin note, append a section to a note, or summarize Joplin note contents. This skill is for local Joplin Desktop data, not remote Joplin Cloud unless the local database has already synced.
+description: Access, search, read, organize, create, append to, and safely update the user's local Joplin notebooks and notes through the Joplin Web Clipper API, with a SQLite fallback for local Joplin Desktop data. Use when the user asks Codex to access Joplin, manage Joplin notebooks, search note titles or bodies, read a Joplin note, summarize notes, add content from another thread into Joplin, create a note, update an existing note, append a section, or export/organize local Joplin content.
 ---
 
 # Joplin Notes
 
-## Core rules
+## Core Rules
 
-Use the bundled script `scripts/joplin_notes.py` for deterministic database access. Default to read-only operations. Write only when the user explicitly asks to create, update, append, or modify a Joplin note.
+Use `scripts/joplin_notes.py` for deterministic access. Prefer the Joplin Web Clipper API on `127.0.0.1` because it respects Joplin's normal data model and avoids direct database edits.
 
-Never expose secrets such as Joplin Web Clipper API tokens. This workflow does not need a token because it reads the local SQLite database.
+Default to read-only operations. Write only when the user explicitly asks to create, update, append, or otherwise modify a note.
 
-Prefer exact title matching for writes. If a title query matches zero or multiple non-deleted notes, stop and ask the user to disambiguate.
+Never expose the Joplin API token in final answers, logs, generated files, or note content. Accept a token only from the current user message, `--token`, `JOPLIN_TOKEN`, `JOPLIN_API_TOKEN`, or the local Joplin profile `settings.json`.
 
-The default Windows Joplin Desktop database path is usually:
+When adding mathematical formulas to Joplin notes, use dollar-delimited math syntax. Use inline formulas as `$...$` and display formulas as `$$...$$`; do not use `\(...\)` or `\[...\]` unless the user explicitly asks for that style.
+
+Prefer exact title matching for writes. If a title query matches zero or multiple notes or notebooks, stop and ask the user to disambiguate.
+
+Use SQLite only as a fallback when the Web Clipper API is unavailable, or when the user explicitly asks for database-level inspection. For SQLite writes, warn that Joplin Desktop may need to notice the change before sync state settles.
+
+## Connection
+
+Expected local API:
 
 ```text
-$env:USERPROFILE\.config\joplin-desktop\database.sqlite
+http://127.0.0.1:41184
 ```
 
-If that file is missing, locate likely profiles before giving up:
+If the port differs, scan `41184..41194` by calling `/ping`; the bundled script does this automatically.
+
+Useful environment variables:
 
 ```powershell
-Get-ChildItem -Path $env:USERPROFILE -Recurse -Force -Filter database.sqlite -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match 'joplin' }
+$env:JOPLIN_TOKEN = "<token>"
+$env:JOPLIN_PORT = "41184"
 ```
 
-## Common tasks
+The default Windows Joplin profile is:
+
+```text
+$env:USERPROFILE\.config\joplin-desktop
+```
+
+## Common Commands
 
 List notebooks:
 
@@ -39,39 +56,72 @@ Search note titles and bodies:
 python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" search --query "keyword" --limit 20
 ```
 
+Show recent notes:
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" recent --limit 20
+```
+
 Read one note by exact title:
 
 ```powershell
 python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" read-title --title "Exact note title"
 ```
 
-Update one note by exact title from a Markdown file:
+Create a note in an exact notebook:
 
 ```powershell
-python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" update-title --title "Exact note title" --body-file C:\tmp\updated-note.md
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" create-note --notebook "ReadingList" --title "New note title" --body-file C:\path\to\note.md
 ```
 
-Append text from a Markdown file to one note by exact title:
+Create a notebook, optionally under an exact parent notebook:
 
 ```powershell
-python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" append-title --title "Exact note title" --body-file C:\tmp\section.md
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" create-notebook --parent "Daily Life" --title "Travel"
+```
+
+Append Markdown to one note by exact title:
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" append-title --title "Exact note title" --body-file C:\path\to\section.md
+```
+
+Replace one note body by exact title:
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" update-title --title "Exact note title" --body-file C:\path\to\updated-note.md
+```
+
+Force SQLite fallback:
+
+```powershell
+python "$env:USERPROFILE\.codex\skills\joplin-notes\scripts\joplin_notes.py" --backend sqlite search --query "keyword"
 ```
 
 ## Workflow
 
-1. For discovery requests, run `list-notebooks`, `recent`, or `search` first.
-2. For reading, prefer `read-title` only when the title is exact. Otherwise search first and ask the user to choose among matches.
-3. For writing, prepare the new Markdown body or appended section in a workspace or temporary file, then run `update-title` or `append-title`.
-4. After writing, verify with `search` or `read-title --metadata-only` and report the updated note title plus timestamp.
-5. If Joplin Desktop is open, warn that sync state may update after Joplin notices the database change.
+1. For discovery, run `list-notebooks`, `recent`, or `search`.
+2. For reading, use `read-title` only when the title is exact; otherwise search first and let the user choose among plausible matches.
+3. For adding content from another Codex thread, convert the content to clean Markdown in a workspace file, then use `create-note` or `append-title`.
+4. For updates, prefer append or create unless the user explicitly requests replacement.
+5. After writing, verify with `read-title --metadata-only`, `read-id --metadata-only`, or `search`, then report the note title and action performed.
+6. Keep user-facing summaries concise, and do not paste large private note bodies unless the user asks.
 
-## SQLite details
+## API Notes
 
-Important tables:
+The script uses the local Joplin Web Clipper endpoints:
+
+- `GET /ping`
+- `GET /folders`
+- `GET /notes`
+- `GET /search?query=...&type=note`
+- `GET /notes/:id`
+- `POST /notes`
+- `PUT /notes/:id`
+
+SQLite fallback reads:
 
 - `folders`: notebooks. Use `id`, `title`, `parent_id`, `deleted_time`.
 - `notes`: notes. Use `id`, `parent_id`, `title`, `body`, `updated_time`, `user_updated_time`, `deleted_time`, `is_conflict`.
 
 Use `deleted_time = 0` for normal visible notebooks and notes.
-
-When writing, update both `updated_time` and `user_updated_time` to current epoch milliseconds.

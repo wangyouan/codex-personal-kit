@@ -1,4 +1,4 @@
 interface:
   display_name: "Joplin Notes"
-  short_description: "Search, read, and safely update local Joplin notes."
-  default_prompt: "Search my local Joplin notes for a title or keyword, then read or update the matching note."
+  short_description: "Access and organize local Joplin notes through the Web Clipper API."
+  default_prompt: "Use $joplin-notes to search, read, organize, or add content to my local Joplin notebooks."
