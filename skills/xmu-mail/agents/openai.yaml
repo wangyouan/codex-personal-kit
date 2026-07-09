@@ -1,0 +1,4 @@
+interface:
+  display_name: "XMU Mail"
+  short_description: "Access Xiamen University email through IMAP and SMTP."
+  default_prompt: "Use $xmu-mail to search recent Xiamen University email."
