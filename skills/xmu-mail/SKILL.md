@@ -14,11 +14,19 @@ Official settings are summarized in `references/server-settings.md`. For repeata
 ## Credentials
 
 - Never write the user's password, app password, session token, or recovery answer into any skill file, repo file, note, or command history.
-- Read `XMU_MAIL_USER` and `XMU_MAIL_PASSWORD` from the environment when available.
-- If credentials are missing, let the script prompt interactively with `getpass`; do not ask the user to paste a password into chat.
+- On Windows, prefer `scripts/xmu-mail.ps1 save-credential`. It stores a Windows-user-encrypted DPAPI credential outside this repository at `~/.codex/xmu-mail.credential.xml`.
+- Use `scripts/xmu-mail.ps1 test-imap` to test the saved Windows credential without exposing it.
+- Otherwise read `XMU_MAIL_USER` and `XMU_MAIL_PASSWORD` from the environment or let `xmu_mail.py` prompt interactively with `getpass`; never ask the user to paste a password into chat.
 - Use SSL endpoints by default: IMAP 993 and SMTP 465.
 
 ## Common Tasks
+
+Create or verify the Windows-local credential:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/xmu-mail.ps1 save-credential
+powershell -ExecutionPolicy Bypass -File scripts/xmu-mail.ps1 test-imap
+```
 
 List folders:
 

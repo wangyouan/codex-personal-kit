@@ -1,0 +1,286 @@
+[kit]
+version = 2
+source_of_truth = "github"
+
+# Managed entries are copied from this repository. External entries are installed
+# from an immutable upstream ref. Archived entries are deliberately never installed.
+
+[[skill]]
+name = "econ-fin-writing"
+mode = "vendor"
+source_path = "skills/econ-fin-writing"
+install_name = "econ-fin-writing"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "none"
+
+[[skill]]
+name = "stata-regression-workflow"
+mode = "vendor"
+source_path = "skills/stata-regression-workflow"
+install_name = "stata-regression-workflow"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Set STATA_EXE locally when auto-discovery cannot find Stata."
+
+[[skill]]
+name = "stata-runner"
+mode = "vendor"
+source_path = "skills/stata-runner"
+install_name = "stata-runner"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Set STATA_EXE locally when auto-discovery cannot find Stata."
+
+[[skill]]
+name = "xmu-mail"
+mode = "vendor"
+source_path = "skills/xmu-mail"
+install_name = "xmu-mail"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Create a local DPAPI credential with scripts/xmu-mail.ps1; never commit it."
+
+[[skill]]
+name = "systematic-literature-review"
+mode = "vendor"
+source_path = "skills/systematic-literature-review"
+install_name = "systematic-literature-review"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Install Python and LaTeX dependencies locally when the workflow requires them."
+
+[[skill]]
+name = "check-review-alignment"
+mode = "vendor"
+source_path = "skills/check-review-alignment"
+install_name = "check-review-alignment"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Requires systematic-literature-review for rendering."
+
+[[skill]]
+name = "get-review-theme"
+mode = "vendor"
+source_path = "skills/get-review-theme"
+install_name = "get-review-theme"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "none"
+
+[[skill]]
+name = "guide-updater"
+mode = "vendor"
+source_path = "skills/guide-updater"
+install_name = "guide-updater"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "none"
+
+[[skill]]
+name = "joplin-notes"
+mode = "vendor"
+source_path = "skills/joplin-notes"
+install_name = "joplin-notes"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Configure Joplin token locally; do not commit it."
+
+[[skill]]
+name = "build-conference-latex-slides"
+mode = "vendor"
+source_path = "skills/build-conference-latex-slides"
+install_name = "build-conference-latex-slides"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Install a LaTeX runtime locally when needed."
+
+[[skill]]
+name = "humanizer"
+mode = "external"
+source_path = "."
+install_name = "humanizer"
+source_repo = "blader/humanizer"
+source_ref = "v2.9.1"
+exportable = false
+post_install = "Installed from the pinned upstream tag."
+
+[[skill]]
+name = "academic-research-suite"
+mode = "external"
+source_path = "skills/academic-research-suite"
+install_name = "academic-research-suite"
+source_repo = "Imbad0202/academic-research-skills-codex"
+source_ref = "86c4cb3784ceab7b3fff412c0ac08183c051bfcf"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "advanced-evaluation"
+mode = "external"
+source_path = "skills/advanced-evaluation"
+install_name = "advanced-evaluation"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "bdi-mental-states"
+mode = "external"
+source_path = "skills/bdi-mental-states"
+install_name = "bdi-mental-states"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "context-compression"
+mode = "external"
+source_path = "skills/context-compression"
+install_name = "context-compression"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "context-degradation"
+mode = "external"
+source_path = "skills/context-degradation"
+install_name = "context-degradation"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "context-fundamentals"
+mode = "external"
+source_path = "skills/context-fundamentals"
+install_name = "context-fundamentals"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "context-optimization"
+mode = "external"
+source_path = "skills/context-optimization"
+install_name = "context-optimization"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "evaluation"
+mode = "external"
+source_path = "skills/evaluation"
+install_name = "evaluation"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "filesystem-context"
+mode = "external"
+source_path = "skills/filesystem-context"
+install_name = "filesystem-context"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "harness-engineering"
+mode = "external"
+source_path = "skills/harness-engineering"
+install_name = "harness-engineering"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "hosted-agents"
+mode = "external"
+source_path = "skills/hosted-agents"
+install_name = "hosted-agents"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "latent-briefing"
+mode = "external"
+source_path = "skills/latent-briefing"
+install_name = "latent-briefing"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "memory-systems"
+mode = "external"
+source_path = "skills/memory-systems"
+install_name = "memory-systems"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "multi-agent-patterns"
+mode = "external"
+source_path = "skills/multi-agent-patterns"
+install_name = "multi-agent-patterns"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "project-development"
+mode = "external"
+source_path = "skills/project-development"
+install_name = "project-development"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "tool-design"
+mode = "external"
+source_path = "skills/tool-design"
+install_name = "tool-design"
+source_repo = "muratcankoylan/Agent-Skills-for-Context-Engineering"
+source_ref = "25e1fa79a33f0985793bcab3c64dde8d020c5132"
+exportable = false
+post_install = "Use Git installation on Windows."
+
+[[skill]]
+name = "jf-writing-style-guide"
+mode = "archive"
+source_path = "archive/jf-writing-style-guide"
+install_name = "jf-skill-1.0.0"
+source_repo = "local"
+source_ref = "v3.1.0"
+exportable = false
+post_install = "Archived only; never installed automatically."

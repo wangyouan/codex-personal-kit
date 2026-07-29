@@ -4,5 +4,8 @@
 # Prefer documenting portable settings here instead of syncing config.toml directly.
 
 [personal_kit]
-version = 1
-sync_mode = "copy"
+version = 2
+sync_mode = "manifest"
+
+# Configure local executable paths through environment variables, never here.
+# Example: STATA_EXE=C:\\Path\\To\\StataMP-64.exe

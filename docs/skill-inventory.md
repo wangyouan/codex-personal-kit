@@ -1,0 +1,30 @@
+# Codex Skills Inventory
+
+This repository is the editable source of truth for portable Codex skills, rules, and global memory. Joplin migration notes are read-only mirrors of this document.
+
+## Daily Workflow
+
+On a new computer, clone this repository, run `scripts/install.ps1 -DryRun`, review the proposed actions, and then run `scripts/install.ps1 -Apply`. On an existing computer, first use `git pull --ff-only`.
+
+To capture intentional local changes to managed skills, rules, or global memory, run `scripts/backup-from-codex.ps1 -DryRun`, review the Git diff, and then run it again with `-Apply`. The scripts never commit or push automatically.
+
+## Managed Skills
+
+The repository copies these self-maintained skills into `~/.codex/skills`: `econ-fin-writing`, `stata-regression-workflow`, `stata-runner`, `xmu-mail`, `systematic-literature-review`, `check-review-alignment`, `get-review-theme`, `guide-updater`, `joplin-notes`, and `build-conference-latex-slides`.
+
+`econ-fin-writing` is the active academic economics, finance, and accounting writing skill. The old JF writing guide is archived in `archive/jf-writing-style-guide` and is never installed.
+
+## External Skills
+
+`humanizer`, `academic-research-suite`, and the 15 Context Engineering skills are installed from immutable upstream references recorded in `skills-manifest.toml`. They are not copied from one computer to another.
+
+## Local-Only Setup
+
+- Set `STATA_EXE` locally only when `stata-runner` cannot discover Stata automatically.
+- Create the XMU mailbox credential locally with `skills/xmu-mail/scripts/xmu-mail.ps1 save-credential`.
+- Keep Joplin token and MCP configuration local. Never commit token files or `.env` files.
+- Codex authentication, logs, sessions, caches, SQLite databases, and local memories stay on each computer.
+
+## Joplin Mirror
+
+Set `JOPLIN_TOKEN` locally and run `scripts/update-joplin-mirror.ps1 -NoteId <note-id> -Apply` for each migration note. The script only writes this document's body to the selected note; edit this GitHub document instead of editing the mirror.

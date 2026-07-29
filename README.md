@@ -1,77 +1,48 @@
 # Codex Personal Kit
 
-This repository is the shared source of truth for Codex skills, rules, and durable memory across multiple computers.
-
-It is intentionally not a full copy of `~/.codex`. Runtime state, secrets, auth files, caches, sessions, and SQLite databases should stay local to each machine.
+This repository is the shared source of truth for portable Codex skills, rules, and durable memory across multiple computers. It deliberately excludes Codex runtime state, authentication, secrets, caches, sessions, and SQLite databases.
 
 ## Layout
 
 ```text
-skills/              Personal Codex skills that can be synced.
-rules/               Personal rules or reusable operating notes.
-memories/global/     Shared memory used on every computer.
-memories/local/      Machine-local memory templates; real local notes are ignored by Git.
-config/              Example config only. Do not commit real secrets.
-scripts/             Install and backup helpers.
+skills/               Self-maintained skills copied by the installer.
+archive/              Recoverable skills that are intentionally not installed.
+skills-manifest.toml  Install policy and pinned third-party skill sources.
+rules/                Portable rules and operating notes.
+memories/global/      Shared, curated memory.
+memories/local/       Ignored templates for machine-local notes.
+docs/                 Human-readable inventory used for the Joplin mirror.
+scripts/              Install, export, validation, and mirror helpers.
 ```
-
-## Memory Model
-
-Use two layers:
-
-1. Global memory: tracked in this repository under `memories/global/`.
-2. Local memory: kept on each computer, normally under `~/.codex/memories/local/`.
-
-This avoids Git conflicts in Codex runtime databases while still letting you carry stable knowledge between machines.
 
 ## Install On A Computer
 
-From this repository:
-
-```powershell
-.\scripts\install.ps1
-```
-
-By default, this copies tracked `skills`, `rules`, and `memories/global` into:
-
-```text
-$env:USERPROFILE\.codex
-```
-
-Use `-DryRun` to preview:
+Clone this repository to a stable local path. Preview first, then write only after review:
 
 ```powershell
 .\scripts\install.ps1 -DryRun
+.\scripts\install.ps1 -Apply
 ```
 
-## Back Up Current Local Skills And Rules
+Use `-Apply -RefreshExternal` only when deliberately reinstalling a pinned external skill. The installer copies only manifest-declared managed skills and never deletes unknown local skills.
 
-If a computer already has useful personal skills or rules:
+## Capture Local Changes
 
-```powershell
-.\scripts\backup-from-codex.ps1
-```
-
-Review the diff before committing:
+Export only allowlisted managed skills, rules, and global memory. The export script checks for secrets, credentials, local caches, databases, and hard-coded user paths before copying:
 
 ```powershell
+.\scripts\backup-from-codex.ps1 -DryRun
+.\scripts\backup-from-codex.ps1 -Apply
 git status
 git diff
 ```
 
+Review and commit intentionally. The scripts never commit or push automatically.
+
+## Memory Model
+
+Track durable cross-computer knowledge under `memories/global/`. Keep machine-specific notes under `~/.codex/memories/local/`, which Git ignores. Use `docs/skill-inventory.md` as the source for Joplin migration-note mirrors.
+
 ## What Not To Commit
 
-Never commit:
-
-- `auth.json`
-- `.sandbox-secrets/`
-- `cap_sid`
-- `installation_id`
-- `logs_*.sqlite*`
-- `state_*.sqlite*`
-- `memories_*.sqlite*`
-- `sessions/`
-- `cache/`
-- `plugins/cache/`
-
-The `.gitignore` file blocks these by default.
+Never commit credentials, auth files, `.env` files, tokens, SQLite databases, logs, session data, caches, or local tool configuration. The `.gitignore` file blocks the common cases, but review every diff before pushing.

@@ -3,6 +3,10 @@ auth.json
 cap_sid
 installation_id
 .sandbox-secrets/
+*.credential.xml
+*.env
+config/local.*
+.personal-kit/
 
 # Codex runtime state
 sessions/

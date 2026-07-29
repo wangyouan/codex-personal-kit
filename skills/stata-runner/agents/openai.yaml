@@ -1,0 +1,7 @@
+interface:
+  display_name: "Stata Runner"
+  short_description: "Run Stata do-files and regression workflows."
+  default_prompt: "Use $stata-runner to run this Stata do-file and summarize the regression results."
+
+policy:
+  allow_implicit_invocation: true
