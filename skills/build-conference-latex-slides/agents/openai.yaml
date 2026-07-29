@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conference LaTeX Slides"
+  short_description: "Build rigorous academic Beamer talks"
+  default_prompt: "Use $build-conference-latex-slides to create or revise an academic conference Beamer deck and verify the compiled result."

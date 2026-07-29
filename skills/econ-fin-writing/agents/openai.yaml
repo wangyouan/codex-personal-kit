@@ -1,0 +1,4 @@
+interface:
+  display_name: "Econ & Finance Writing"
+  short_description: "Polish and review top-journal econ writing"
+  default_prompt: "Use $econ-fin-writing to polish this manuscript passage in the appropriate economics, finance, accounting, or Chinese-management journal style without changing its claims."

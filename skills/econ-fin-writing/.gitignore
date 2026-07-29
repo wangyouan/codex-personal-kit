@@ -1,0 +1,32 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local corpus artifacts — regenerate with scripts/, never commit
+corpus/
+*.sqlite
+*.sqlite-journal
+items.json
+pdfs.json
+colls.json
+*_abstracts.txt
+*_intros.txt
+*_meta.json
+
+# Scratch
+*.tmp
+*.log
+scratch/
