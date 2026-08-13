@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "table_type": "variable_definition",
+  "language": "zh",
+  "label": "表4",
+  "title": "变量定义",
+  "multipage": true,
+  "columns": [{"key": "symbol", "label": "变量符号"}, {"key": "definition", "label": "变量说明"}, {"key": "source", "label": "数据来源"}],
+  "rows": [
+    {"kind": "data", "label": "企业投资", "values": {"symbol": "Investment", "definition": "资本支出除以期初总资产。", "source": "CSMAR"}},
+    {"kind": "data", "label": "处理变量", "values": {"symbol": "Treatment", "definition": "企业属于处理组且处于政策实施后取1，否则取0。", "source": "政策文件与公司公告"}},
+    {"kind": "data", "label": "企业规模", "values": {"symbol": "Size", "definition": "期末总资产的自然对数。", "source": "CSMAR"}},
+    {"kind": "data", "label": "资产负债率", "values": {"symbol": "Leverage", "definition": "期末总负债除以期末总资产。", "source": "CSMAR"}}
+  ],
+  "notes": ["本表仅使用合成变量定义展示排版结构。"]
+}

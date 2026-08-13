@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "table_type": "regression",
+  "language": "en",
+  "label": "Table 1",
+  "title": "Baseline Regression Results",
+  "caption_note": "The dependent variable is firm investment.",
+  "columns": [
+    {"key": "m1", "model": "(1)", "label": "Investment", "group": "Full sample"},
+    {"key": "m2", "model": "(2)", "label": "Investment", "group": "Full sample"},
+    {"key": "m3", "model": "(3)", "label": "Investment", "group": "High constraint"},
+    {"key": "m4", "model": "(4)", "label": "Investment", "group": "High constraint"}
+  ],
+  "rows": [
+    {"kind": "coefficient", "label": "Treatment", "pair_id": "treatment", "values": {"m1": {"value": 0.0184, "stars": "***", "decimals": 3}, "m2": {"value": 0.0142, "stars": "**", "decimals": 3}, "m3": {"value": 0.0261, "stars": "***", "decimals": 3}, "m4": {"value": 0.0213, "stars": "***", "decimals": 3}}},
+    {"kind": "statistic", "label": "", "pair_id": "treatment", "values": {"m1": {"value": 0.0048, "decimals": 3, "parentheses": true}, "m2": {"value": 0.0059, "decimals": 3, "parentheses": true}, "m3": {"value": 0.0071, "decimals": 3, "parentheses": true}, "m4": {"value": 0.0068, "decimals": 3, "parentheses": true}}},
+    {"kind": "coefficient", "label": "Size", "pair_id": "size", "values": {"m1": {"value": 0.0062, "decimals": 3}, "m2": {"value": 0.0044, "decimals": 3}, "m3": {"value": 0.0021, "decimals": 3}, "m4": {"value": 0.0018, "decimals": 3}}},
+    {"kind": "statistic", "label": "", "pair_id": "size", "values": {"m1": {"value": 0.0041, "decimals": 3, "parentheses": true}, "m2": {"value": 0.0040, "decimals": 3, "parentheses": true}, "m3": {"value": 0.0037, "decimals": 3, "parentheses": true}, "m4": {"value": 0.0036, "decimals": 3, "parentheses": true}}},
+    {"kind": "spacer"},
+    {"kind": "metadata", "label": "Controls", "values": {"m1": "No", "m2": "Yes", "m3": "No", "m4": "Yes"}},
+    {"kind": "metadata", "label": "Firm FE", "values": {"m1": "Yes", "m2": "Yes", "m3": "Yes", "m4": "Yes"}},
+    {"kind": "metadata", "label": "Year FE", "values": {"m1": "Yes", "m2": "Yes", "m3": "Yes", "m4": "Yes"}},
+    {"kind": "metadata", "label": "Observations", "values": {"m1": 18218, "m2": 18218, "m3": 8750, "m4": 8750}},
+    {"kind": "metadata", "label": "R-squared", "values": {"m1": {"value": 0.286, "decimals": 3}, "m2": {"value": 0.331, "decimals": 3}, "m3": {"value": 0.301, "decimals": 3}, "m4": {"value": 0.352, "decimals": 3}}}
+  ],
+  "inference": {"statistic_type": "standard_error", "cluster": "firm", "significance": {"*": 0.1, "**": 0.05, "***": 0.01}},
+  "notes": ["Standard errors clustered by firm are in parentheses.", "*, **, and *** denote significance at the 10%, 5%, and 1% levels, respectively."]
+}

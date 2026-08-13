@@ -10,9 +10,11 @@ To capture intentional local changes to managed skills, rules, or global memory,
 
 ## Managed Skills
 
-The repository copies these self-maintained skills into `~/.codex/skills`: `econ-fin-writing`, `stata-regression-workflow`, `stata-runner`, `xmu-mail`, `systematic-literature-review`, `check-review-alignment`, `get-review-theme`, `guide-updater`, `joplin-notes`, and `build-conference-latex-slides`.
+The repository copies these self-maintained skills into `~/.codex/skills`: `econ-fin-writing`, `format-econ-fin-tables`, `stata-regression-workflow`, `stata-runner`, `xmu-mail`, `systematic-literature-review`, `check-review-alignment`, `get-review-theme`, `guide-updater`, `joplin-notes`, and `build-conference-latex-slides`.
 
 `econ-fin-writing` is the active academic economics, finance, and accounting writing skill. The old JF writing guide is archived in `archive/jf-writing-style-guide` and is never installed.
+
+`format-econ-fin-tables` creates and audits publication-ready regression, descriptive, correlation, variable-definition, difference-test, and robustness tables in LaTeX, editable Word, and Excel. Its core instructions and canonical specification are shared by Claude Code and Codex; the Codex Excel adapter uses the bundled spreadsheet runtime.
 
 ## External Skills
 

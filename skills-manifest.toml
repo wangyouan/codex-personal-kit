@@ -16,6 +16,16 @@ exportable = true
 post_install = "none"
 
 [[skill]]
+name = "format-econ-fin-tables"
+mode = "vendor"
+source_path = "skills/format-econ-fin-tables"
+install_name = "format-econ-fin-tables"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Install LibreOffice locally for Word render verification; Codex uses its bundled spreadsheet runtime for Excel output."
+
+[[skill]]
 name = "stata-regression-workflow"
 mode = "vendor"
 source_path = "skills/stata-regression-workflow"

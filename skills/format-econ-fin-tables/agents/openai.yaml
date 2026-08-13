@@ -1,0 +1,4 @@
+interface:
+  display_name: "Econ & Finance Tables"
+  short_description: "Format publication-ready economics tables"
+  default_prompt: "Use $format-econ-fin-tables to turn these empirical results into a publication-ready economics or finance table in the requested format."

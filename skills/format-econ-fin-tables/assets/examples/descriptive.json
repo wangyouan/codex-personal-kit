@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "table_type": "descriptive",
+  "language": "en",
+  "label": "Table 2",
+  "title": "Descriptive Statistics",
+  "columns": [
+    {"key": "n", "label": "N"}, {"key": "mean", "label": "Mean"}, {"key": "sd", "label": "Std. Dev."},
+    {"key": "p25", "label": "25th"}, {"key": "median", "label": "Median"}, {"key": "p75", "label": "75th"}
+  ],
+  "rows": [
+    {"kind": "panel", "label": "Dependent variables"},
+    {"kind": "data", "label": "Investment", "values": {"n": 18218, "mean": {"value": 0.0582, "decimals": 4}, "sd": {"value": 0.0612, "decimals": 4}, "p25": {"value": 0.0167, "decimals": 4}, "median": {"value": 0.0392, "decimals": 4}, "p75": {"value": 0.0781, "decimals": 4}}},
+    {"kind": "data", "label": "R&D investment", "values": {"n": 18218, "mean": {"value": 0.0598, "decimals": 4}, "sd": {"value": 0.062, "decimals": 4}, "p25": {"value": 0.0176, "decimals": 4}, "median": {"value": 0.0409, "decimals": 4}, "p75": {"value": 0.0808, "decimals": 4}}},
+    {"kind": "panel", "label": "Explanatory variables"},
+    {"kind": "data", "label": "Treatment", "values": {"n": 18218, "mean": {"value": 0.214, "decimals": 3}, "sd": {"value": 0.41, "decimals": 3}, "p25": {"value": 0, "decimals": 3}, "median": {"value": 0, "decimals": 3}, "p75": {"value": 0, "decimals": 3}}}
+  ],
+  "notes": ["All continuous variables are winsorized at the 1st and 99th percentiles."]
+}

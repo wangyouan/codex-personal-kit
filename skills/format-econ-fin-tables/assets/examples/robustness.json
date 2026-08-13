@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "table_type": "robustness",
+  "language": "en",
+  "label": "Table 6",
+  "title": "Robustness and Heterogeneity Tests",
+  "rows_per_page": 10,
+  "purpose": "Assess whether the baseline result survives alternative specifications and subsamples.",
+  "expected_result": "The treatment coefficient retains its sign and remains economically meaningful.",
+  "columns": [
+    {"key": "m1", "model": "(1)", "label": "Baseline", "group": "Alternative models"}, {"key": "m2", "model": "(2)", "label": "PPML", "group": "Alternative models"},
+    {"key": "m3", "model": "(3)", "label": "Large", "group": "Subsamples"}, {"key": "m4", "model": "(4)", "label": "Small", "group": "Subsamples"}
+  ],
+  "rows": [
+    {"kind": "panel", "label": "Panel A: Alternative estimators"},
+    {"kind": "coefficient", "label": "Treatment", "pair_id": "a_treat", "values": {"m1": {"value": 0.018, "stars": "***"}, "m2": {"value": 0.015, "stars": "**"}, "m3": null, "m4": null}},
+    {"kind": "statistic", "label": "", "pair_id": "a_treat", "values": {"m1": {"value": 0.005, "parentheses": true}, "m2": {"value": 0.006, "parentheses": true}}},
+    {"kind": "coefficient", "label": "Size", "pair_id": "a_size", "values": {"m1": {"value": 0.006}, "m2": {"value": 0.007}, "m3": null, "m4": null}},
+    {"kind": "statistic", "label": "", "pair_id": "a_size", "values": {"m1": {"value": 0.004, "parentheses": true}, "m2": {"value": 0.004, "parentheses": true}}},
+    {"kind": "panel", "label": "Panel B: Firm-size subsamples"},
+    {"kind": "coefficient", "label": "Treatment", "pair_id": "b_treat", "values": {"m1": null, "m2": null, "m3": {"value": 0.011, "stars": "*"}, "m4": {"value": 0.026, "stars": "***"}}},
+    {"kind": "statistic", "label": "", "pair_id": "b_treat", "values": {"m3": {"value": 0.006, "parentheses": true}, "m4": {"value": 0.008, "parentheses": true}}},
+    {"kind": "coefficient", "label": "Leverage", "pair_id": "b_lev", "values": {"m3": {"value": -0.014}, "m4": {"value": -0.021, "stars": "**"}}},
+    {"kind": "statistic", "label": "", "pair_id": "b_lev", "values": {"m3": {"value": 0.010, "parentheses": true}, "m4": {"value": 0.009, "parentheses": true}}},
+    {"kind": "metadata", "label": "Firm FE", "values": {"m1": "Yes", "m2": "Yes", "m3": "Yes", "m4": "Yes"}},
+    {"kind": "metadata", "label": "Year FE", "values": {"m1": "Yes", "m2": "Yes", "m3": "Yes", "m4": "Yes"}},
+    {"kind": "metadata", "label": "Observations", "values": {"m1": 18218, "m2": 18218, "m3": 9100, "m4": 9118}}
+  ],
+  "inference": {"statistic_type": "standard_error", "cluster": "firm", "significance": {"*": 0.1, "**": 0.05, "***": 0.01}},
+  "notes": ["Firm-clustered standard errors are in parentheses.", "*, **, and *** denote significance at the 10%, 5%, and 1% levels, respectively."]
+}

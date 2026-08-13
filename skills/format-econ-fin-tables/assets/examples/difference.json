@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "table_type": "difference",
+  "language": "en",
+  "label": "Table 5",
+  "title": "Covariate Balance and Difference Tests",
+  "columns": [
+    {"key": "tm", "label": "Mean", "group": "Treated"}, {"key": "ts", "label": "Std. Dev.", "group": "Treated"},
+    {"key": "cm", "label": "Mean", "group": "Control"}, {"key": "cs", "label": "Std. Dev.", "group": "Control"},
+    {"key": "diff", "label": "Difference", "group": "Test"}, {"key": "p", "label": "p-value", "group": "Test"}
+  ],
+  "rows": [
+    {"kind": "data", "label": "Size", "values": {"tm": {"value": 8.323, "decimals": 3}, "ts": {"value": 1.764, "decimals": 3}, "cm": {"value": 8.557, "decimals": 3}, "cs": {"value": 1.606, "decimals": 3}, "diff": {"value": -0.233, "stars": "*", "decimals": 3}, "p": {"value": 0.059, "decimals": 3}}},
+    {"kind": "data", "label": "Leverage", "values": {"tm": {"value": 0.299, "decimals": 3}, "ts": {"value": 0.283, "decimals": 3}, "cm": {"value": 0.324, "decimals": 3}, "cs": {"value": 0.319, "decimals": 3}, "diff": {"value": -0.025, "decimals": 3}, "p": {"value": 0.127, "decimals": 3}}},
+    {"kind": "data", "label": "Profitability", "values": {"tm": {"value": 0.045, "decimals": 3}, "ts": {"value": 0.065, "decimals": 3}, "cm": {"value": 0.044, "decimals": 3}, "cs": {"value": 0.066, "decimals": 3}, "diff": {"value": 0.001, "decimals": 3}, "p": {"value": 0.759, "decimals": 3}}}
+  ],
+  "significance": {"*": 0.1},
+  "notes": ["The table reports two-sample mean-difference tests. * denotes significance at the 10% level."]
+}
