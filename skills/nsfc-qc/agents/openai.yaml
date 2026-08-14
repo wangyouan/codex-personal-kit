@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Proposal QC"
+  short_description: "Run read-only quality control on NSFC proposals"
+  default_prompt: "Use $nsfc-qc to audit this NSFC proposal for structure, citations, length, logic, and writing risks without editing the proposal."

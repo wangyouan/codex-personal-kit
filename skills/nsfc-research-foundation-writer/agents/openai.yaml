@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Research Foundation Writer"
+  short_description: "Write feasibility and working-condition sections"
+  default_prompt: "Use $nsfc-research-foundation-writer to organize NSFC research foundation, working conditions, and risk responses into LaTeX outputs."

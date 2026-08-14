@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Paper Reviewer"
+  short_description: "Run multi-perspective manuscript review"
+  default_prompt: "Use $academic-paper-reviewer to review this manuscript from independent editorial, methodology, domain, perspective, and devil's-advocate viewpoints."

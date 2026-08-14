@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Citation Alignment"
+  short_description: "Audit proposal citations and BibTeX alignment"
+  default_prompt: "Use $nsfc-ref-alignment to check citation keys, BibTeX metadata, DOI risks, and semantic citation alignment without modifying the proposal."

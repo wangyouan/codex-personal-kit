@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Research Content Writer"
+  short_description: "Structure NSFC aims, innovation, and timeline"
+  default_prompt: "Use $nsfc-research-content-writer to organize NSFC research content, innovation points, and the three-year research plan into LaTeX outputs."

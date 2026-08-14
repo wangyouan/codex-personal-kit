@@ -12,6 +12,10 @@ To capture intentional local changes to managed skills, rules, or global memory,
 
 The repository copies these self-maintained skills into `~/.codex/skills`: `econ-fin-writing`, `format-econ-fin-tables`, `stata-regression-workflow`, `stata-runner`, `xmu-mail`, `systematic-literature-review`, `check-review-alignment`, `get-review-theme`, `guide-updater`, `joplin-notes`, and `build-conference-latex-slides`.
 
+The repository also manages eight NSFC proposal skills: `nsfc-qc`, `nsfc-ref-alignment`, `nsfc-length-aligner`, `nsfc-abstract`, `nsfc-research-content-writer`, `nsfc-research-foundation-writer`, `nsfc-reviewers`, and `nsfc-justification-writer`.
+
+The repository includes three research skills migrated from the local Claude kit: `academic-paper-reviewer`, `theoretical-economics-orchestrator`, and `zotero-librarian`. The theoretical economics skill retains its upstream MIT license and attribution. The reviewer skill is read-only; the Zotero skill reads the database read-only and generates scripts for the user to run inside Zotero.
+
 `econ-fin-writing` is the active academic economics, finance, and accounting writing skill. The old JF writing guide is archived in `archive/jf-writing-style-guide` and is never installed.
 
 `format-econ-fin-tables` creates and audits publication-ready regression, descriptive, correlation, variable-definition, difference-test, and robustness tables in LaTeX, editable Word, and Excel. Its core instructions and canonical specification are shared by Claude Code and Codex; the Codex Excel adapter uses the bundled spreadsheet runtime.

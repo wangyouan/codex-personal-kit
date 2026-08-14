@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zotero Librarian"
+  short_description: "Audit and organize a Zotero library safely"
+  default_prompt: "Use $zotero-librarian to inspect my Zotero library read-only and generate a reviewable, idempotent JavaScript maintenance script."

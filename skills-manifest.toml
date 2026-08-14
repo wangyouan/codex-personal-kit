@@ -116,6 +116,116 @@ exportable = true
 post_install = "Install a LaTeX runtime locally when needed."
 
 [[skill]]
+name = "nsfc-qc"
+mode = "vendor"
+source_path = "skills/nsfc-qc"
+install_name = "nsfc-qc"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Read-only NSFC proposal quality control; keeps reports in the proposal delivery workspace."
+
+[[skill]]
+name = "nsfc-ref-alignment"
+mode = "vendor"
+source_path = "skills/nsfc-ref-alignment"
+install_name = "nsfc-ref-alignment"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Read-only citation and BibTeX alignment audit."
+
+[[skill]]
+name = "nsfc-length-aligner"
+mode = "vendor"
+source_path = "skills/nsfc-length-aligner"
+install_name = "nsfc-length-aligner"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Requires a local LaTeX toolchain only when rendering is requested."
+
+[[skill]]
+name = "nsfc-abstract"
+mode = "vendor"
+source_path = "skills/nsfc-abstract"
+install_name = "nsfc-abstract"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "none"
+
+[[skill]]
+name = "nsfc-research-content-writer"
+mode = "vendor"
+source_path = "skills/nsfc-research-content-writer"
+install_name = "nsfc-research-content-writer"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Writes only the declared extraTex outputs when apply mode is selected."
+
+[[skill]]
+name = "nsfc-research-foundation-writer"
+mode = "vendor"
+source_path = "skills/nsfc-research-foundation-writer"
+install_name = "nsfc-research-foundation-writer"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Writes only the declared extraTex outputs when apply mode is selected."
+
+[[skill]]
+name = "nsfc-reviewers"
+mode = "vendor"
+source_path = "skills/nsfc-reviewers"
+install_name = "nsfc-reviewers"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Read-only proposal review; may use parallel review capabilities when available."
+
+[[skill]]
+name = "nsfc-justification-writer"
+mode = "vendor"
+source_path = "skills/nsfc-justification-writer"
+install_name = "nsfc-justification-writer"
+source_repo = "wangyouan/codex-personal-skills"
+source_ref = "main"
+exportable = true
+post_install = "Writes only the declared justification output when apply mode is selected."
+
+[[skill]]
+name = "academic-paper-reviewer"
+mode = "vendor"
+source_path = "skills/academic-paper-reviewer"
+install_name = "academic-paper-reviewer"
+source_repo = "wangyouan/claude-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Read-only manuscript review; all reviewer outputs are separate reports."
+
+[[skill]]
+name = "theoretical-economics-orchestrator"
+mode = "vendor"
+source_path = "skills/theoretical-economics-orchestrator"
+install_name = "theoretical-economics-orchestrator"
+source_repo = "wangyouan/claude-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Third-party MIT skill; preserve LICENSE and attribution."
+
+[[skill]]
+name = "zotero-librarian"
+mode = "vendor"
+source_path = "skills/zotero-librarian"
+install_name = "zotero-librarian"
+source_repo = "wangyouan/claude-personal-kit"
+source_ref = "main"
+exportable = true
+post_install = "Reads zotero.sqlite read-only and generates a script for execution inside Zotero."
+
+[[skill]]
 name = "humanizer"
 mode = "external"
 source_path = "."

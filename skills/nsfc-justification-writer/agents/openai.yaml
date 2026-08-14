@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Justification Writer"
+  short_description: "Write the NSFC project justification"
+  default_prompt: "Use $nsfc-justification-writer to draft or restructure the NSFC project justification while preserving the template boundaries."

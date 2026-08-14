@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Length Aligner"
+  short_description: "Measure and align proposal section lengths"
+  default_prompt: "Use $nsfc-length-aligner to inspect this NSFC proposal's length budget and recommend or perform meaning-preserving expansion and compression."

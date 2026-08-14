@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Abstract Writer"
+  short_description: "Write Chinese and English NSFC abstracts"
+  default_prompt: "Use $nsfc-abstract to draft a faithful Chinese and English NSFC abstract plus title suggestions."

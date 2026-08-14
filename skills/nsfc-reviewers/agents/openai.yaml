@@ -1,0 +1,4 @@
+interface:
+  display_name: "NSFC Proposal Reviewer"
+  short_description: "Simulate expert review of NSFC proposals"
+  default_prompt: "Use $nsfc-reviewers to review this NSFC proposal from multiple expert perspectives and produce prioritized, actionable revisions without editing it."

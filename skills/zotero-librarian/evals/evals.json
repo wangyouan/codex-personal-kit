@@ -1,0 +1,26 @@
+{
+  "skill_name": "zotero-librarian",
+  "evals": [
+    {
+      "id": 0,
+      "name": "file-new-papers-and-tags",
+      "prompt": "我的 Zotero 库在 /tmp/zl-fix/test_zotero.sqlite（Zotero 已关闭）。我最近加的几篇论文只丢在顶层大类里没细分，标签也乱七八糟——有中文的、有小写的。帮我看一下，生成一个 js 脚本把它们归到对应的子文件夹，标签也统一成英文的。",
+      "expected_output": "A .js file for Zotero Run JavaScript that adds items to correct subcollections and normalizes tags to English Title Case. Idempotent; must not modify the sqlite file.",
+      "files": ["/tmp/zl-fix/test_zotero.sqlite"]
+    },
+    {
+      "id": 1,
+      "name": "fix-metadata-consistency",
+      "prompt": "帮我把 /tmp/zl-fix/test_zotero.sqlite 这个 Zotero 库的元数据规范一下：作者名有全大写的，有的中文作者名后面粘了邮箱，期刊名 Journal of Finance 和 The Journal of Finance 混着用，标题大小写也不统一。生成一个修复脚本。",
+      "expected_output": "A .js file fixing ALL-CAPS authors, stripping email from Chinese author name without deleting the name, unifying journal names to official titles, and Title-Casing titles including china -> China.",
+      "files": ["/tmp/zl-fix/test_zotero.sqlite"]
+    },
+    {
+      "id": 2,
+      "name": "repair-broken-nber-import",
+      "prompt": "我往 Zotero 里拖了个 NBER 的 PDF，条目全乱了——标题变成了 \"Nber working paper series\"，什么都没有。库在 /tmp/zl-fix/test_zotero.sqlite。帮我修好这条，顺便归个类打上标签。",
+      "expected_output": "Identifies item AAAA0005 (Borri & Liu, AI consumption tokens), searches for the real paper, generates a .js setting title/type/repository/number/DOI/url plus collections and tags. Must not invent an unverified DOI.",
+      "files": ["/tmp/zl-fix/test_zotero.sqlite"]
+    }
+  ]
+}

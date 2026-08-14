@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theoretical Economics Orchestrator"
+  short_description: "Turn economic puzzles into theory models"
+  default_prompt: "Use $theoretical-economics-orchestrator to develop this economic intuition through model matching, assumptions, propositions, proof sketches, and a working-paper outline."
