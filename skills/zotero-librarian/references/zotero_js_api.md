@@ -133,6 +133,32 @@ function findByPath(path) {           // "Corporate Finance/Capital Structure"
 }
 ```
 
+For a read-only live collection export while Zotero remains open, use the same
+API without calling `save`, `saveTx`, or `eraseTx`:
+
+```javascript
+var libraryID = Zotero.Libraries.userLibraryID;
+var collections = Zotero.Collections.getByLibrary(libraryID, true);
+var byID = {};
+collections.forEach(function (c) { byID[c.id] = c; });
+function pathOf(c) {
+  var parts = [];
+  while (c) {
+    parts.unshift(c.name);
+    c = c.parentID ? byID[c.parentID] : null;
+  }
+  return parts.join('/');
+}
+var rows = collections.map(function (c) {
+  return { id: c.id, name: c.name, parentID: c.parentID, path: pathOf(c) };
+});
+return JSON.stringify(rows, null, 2);
+```
+
+This reads Zotero's current in-memory/library state and does not require
+closing the application. Use the Python scanner's temporary SQLite snapshot
+when a full SQL inventory is needed instead.
+
 Matching on name alone breaks when the same name exists under several parents (e.g. `Machine Learning` under both `Quantitative Methods` and `Topics`). Always resolve by full path.
 
 Creating, adding, removing:

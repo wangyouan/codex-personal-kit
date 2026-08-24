@@ -1,12 +1,20 @@
 # zotero.sqlite — schema notes for read-only analysis
 
-Open read-only, never copy a live library:
+Read a consistent temporary snapshot, never write to the live library:
 
 ```python
-c = sqlite3.connect(f'file:{DB}?mode=ro', uri=True)
+source = sqlite3.connect(Path(DB).resolve().as_uri() + '?mode=ro', uri=True)
+snapshot = sqlite3.connect(TEMP_DB)
+source.backup(snapshot)
+snapshot.close()
+source.close()
+c = sqlite3.connect(f'file:{TEMP_DB}?mode=ro', uri=True)
 ```
 
-If you get `database disk image is malformed` or a copy that never finishes, Zotero is still running. Ask the user to close it.
+The bundled `scan_library.py` performs this backup in a temporary directory and
+removes it automatically after reading. If a backup fails during an active
+sync, retry after the sync settles. Do not close Zotero as a routine
+prerequisite.
 
 ## Item basics
 

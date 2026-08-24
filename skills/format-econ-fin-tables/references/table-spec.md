@@ -21,6 +21,10 @@ Store one table as UTF-8 JSON. The validator and Excel builder accept either one
 
 Allowed table types are `regression`, `descriptive`, `correlation`, `variable_definition`, `difference`, and `robustness`.
 
+An imported or manually prepared specification may also include `profile` with
+one of `chinese-journal`, `english-paper`, or `compact-report`. This is a
+presentation intent, not a replacement for an explicit journal template.
+
 ## Rows
 
 Every row has `kind`, `label`, and normally `values`, a mapping from column key to a cell.
@@ -62,3 +66,6 @@ Allowed statistics are `standard_error`, `t_statistic`, and `z_statistic`. Use `
 - `multipage`: force a multipage implementation.
 - `rows_per_page`: Word segmentation target; keep paired rows together.
 - `source`: a source note, not a confidential path.
+- `profile`: output profile used to choose language and default precision.
+- `integrity_warnings`: machine-generated review flags from the long-format
+  importer; resolve or explain them before publication.

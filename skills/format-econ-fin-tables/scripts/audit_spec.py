@@ -10,6 +10,8 @@ from spec_utils import cell_parts, load_specs, validate_spec
 
 def audit(spec):
     errors, warnings = validate_spec(spec)
+    for flag in spec.get("integrity_warnings", []):
+        warnings.append(f"integrity review: {flag}")
     significance = (spec.get("inference") or {}).get("significance", spec.get("significance", {}))
     stars_used = set()
     decimals_by_row = defaultdict(set)

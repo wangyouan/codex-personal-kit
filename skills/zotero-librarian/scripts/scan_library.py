@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Read-only inventory of a Zotero library.
 
-Never writes. Open the live zotero.sqlite read-only rather than copying it —
-copying a large library races with Zotero's own writes and often yields
-'database disk image is malformed'. Ask the user to close Zotero first.
+Never writes to the user's library. Create a consistent temporary SQLite online
+backup, read the backup, and remove it when the process exits. Zotero may stay
+open while the scan runs.
 
     python3 scan_library.py /path/to/zotero.sqlite
     python3 scan_library.py DB --tree --tags
@@ -20,7 +20,9 @@ import json
 import re
 import sqlite3
 import sys
+import tempfile
 from collections import Counter, defaultdict
+from pathlib import Path
 
 REGULAR = ('journalArticle', 'preprint', 'report', 'bookSection', 'book',
            'thesis', 'newspaperArticle', 'magazineArticle', 'conferencePaper')
@@ -31,9 +33,37 @@ EMAIL = re.compile(r'[A-Za-z0-9._%\-]+@[A-Za-z0-9._%\-]+')   # ASCII only: \w ea
 
 class Library:
     def __init__(self, path):
-        self.db = sqlite3.connect(f'file:{path}?mode=ro', uri=True)
+        db_uri = Path(path).resolve().as_uri() + '?mode=ro'
+        self.db = sqlite3.connect(db_uri, uri=True)
+        self.db.execute('PRAGMA busy_timeout = 30000')
         self.cur = self.db.cursor()
         self._load()
+
+    def close(self):
+        self.db.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, _exc_type, _exc, _tb):
+        self.close()
+
+
+def snapshot_database(source_path, destination_path):
+    """Create a consistent temporary copy using SQLite's online backup API."""
+    source = Path(source_path).expanduser().resolve()
+    if not source.is_file():
+        raise FileNotFoundError(f'Zotero database not found: {source}')
+    source_uri = source.as_uri() + '?mode=ro'
+    src = sqlite3.connect(source_uri, uri=True, timeout=30)
+    dst = sqlite3.connect(str(destination_path))
+    try:
+        src.execute('PRAGMA busy_timeout = 30000')
+        src.backup(dst, pages=100, sleep=0.1)
+        dst.commit()
+    finally:
+        dst.close()
+        src.close()
 
     def _load(self):
         cur = self.cur
@@ -297,28 +327,30 @@ def main():
     a = ap.parse_args()
 
     try:
-        lib = Library(a.db)
-    except sqlite3.DatabaseError as e:
-        sys.exit(f"cannot read database ({e}).\n"
-                 "Zotero is probably still running — ask the user to close it.")
-
-    lib.summary()
-    everything = not any([a.tree, a.tags, a.recent, a.unfiled, a.quality,
-                          a.case_audit, a.json])
-    if a.tree or everything:
-        lib.tree()
-    if a.tags or everything:
-        lib.tags()
-    if a.recent:
-        lib.recent(a.recent)
-    if a.unfiled or everything:
-        lib.unfiled()
-    if a.quality or everything:
-        lib.quality()
-    if a.case_audit or everything:
-        lib.case_audit()
-    if a.json:
-        lib.dump(a.json)
+        with tempfile.TemporaryDirectory(prefix='zotero-snapshot-') as tmp:
+            snapshot = Path(tmp) / 'zotero.sqlite'
+            snapshot_database(a.db, snapshot)
+            with Library(snapshot) as lib:
+                lib.summary()
+                everything = not any([a.tree, a.tags, a.recent, a.unfiled, a.quality,
+                                      a.case_audit, a.json])
+                if a.tree or everything:
+                    lib.tree()
+                if a.tags or everything:
+                    lib.tags()
+                if a.recent:
+                    lib.recent(a.recent)
+                if a.unfiled or everything:
+                    lib.unfiled()
+                if a.quality or everything:
+                    lib.quality()
+                if a.case_audit or everything:
+                    lib.case_audit()
+                if a.json:
+                    lib.dump(a.json)
+    except (OSError, sqlite3.DatabaseError) as e:
+        sys.exit(f"cannot create or read temporary Zotero snapshot ({e}).\n"
+                 "The original database was not modified; retry after Zotero finishes a sync if needed.")
 
 
 if __name__ == '__main__':

@@ -19,16 +19,35 @@ So: **analysis in Python (read-only) → decisions → emit one `.js` file → t
 
 ### 1. Read the library without disturbing it
 
-Ask the user to close Zotero first. This matters more than it sounds: while Zotero runs, it writes constantly, a `-journal` file appears, and any copy you take is likely to be inconsistent (`database disk image is malformed`) or never finish copying on a large library.
+Do not ask the user to close Zotero. `scripts/scan_library.py` creates a
+consistent temporary SQLite snapshot with the SQLite online backup API, reads
+only that snapshot, and deletes the temporary directory when the scan exits.
+The original `zotero.sqlite` is never written to. This also includes the
+current `-wal` state seen by SQLite while the snapshot is made, so Zotero can
+remain open during the scan.
 
-Then query the live file read-only rather than copying it — copying a 200MB+ library repeatedly is slow and races with writes:
+Use the scanner rather than querying the live file directly:
 
 ```python
 DB = '/sessions/<session>/mnt/Zotero/zotero.sqlite'   # translate the user's Zotero path
 c = sqlite3.connect(f'file:{DB}?mode=ro', uri=True)
 ```
 
-`scripts/scan_library.py` does a full inventory in one pass — collections tree with counts, tag frequencies, per-item collections/tags, and the common data-quality problems. Start there rather than writing ad-hoc queries; the schema is fiddly and it is already handled. See `references/zotero_schema.md` when you need a query it does not cover.
+`scripts/scan_library.py` does a full inventory in one pass — collections tree with counts, tag frequencies, per-item collections/tags, and the common data-quality problems. Start there rather than writing ad-hoc queries; the schema is fiddly and it is already handled. See `references/zotero_schema.md` when you need a query it does not cover. If a sync is actively changing the library and the snapshot fails, retry after the sync settles; do not close Zotero as a routine prerequisite.
+
+When the task needs the exact live collection state while Zotero remains open,
+prefer a read-only JavaScript snippet executed inside Zotero. The generated
+script path already follows this pattern:
+
+```javascript
+var libraryID = Zotero.Libraries.userLibraryID;
+var allColls = Zotero.Collections.getByLibrary(libraryID, true);
+```
+
+Resolve collections by their full parent/child path, not by name alone. The
+internal API is the best route for live collection membership and Zotero's
+cached objects; the Python snapshot route is better for larger SQL inventories
+and machine-readable audits.
 
 Bash calls time out around 45s, so wrap long scans in `timeout 42` and keep each query focused.
 

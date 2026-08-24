@@ -1,0 +1,5 @@
+spec,outcome,term,coef,se,p,N,unit_count,unit_fe,time_fe,controls,cluster,defined_sample_units,outcome_nonmissing,final_sample
+Baseline,Investment,Treatment,0.0184,0.0048,0.001,18218,1250,Yes,Yes,No,firm,1400,18218,18218
+Controls,Investment,Treatment,0.0142,0.0059,0.016,17602,1248,Yes,Yes,Yes,firm,1400,18218,17602
+Baseline,Productivity,Treatment,0.0081,0.0031,0.009,18218,1250,Yes,Yes,No,firm,1400,18218,18218
+Controls,Productivity,Treatment,0.0067,0.0034,0.049,17602,1248,Yes,Yes,Yes,firm,1400,18218,17602

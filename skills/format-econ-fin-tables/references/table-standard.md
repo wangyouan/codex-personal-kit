@@ -4,6 +4,20 @@
 
 Apply, in order: an explicit journal/template; an established current-project convention that does not violate data integrity; the defaults below. Never copy a visible defect merely because it appears in an old manuscript.
 
+## Table argument and column plan
+
+Before choosing a layout, state the comparison the table is designed to make:
+the outcome, observation unit, sample restrictions, model sequence, and what
+changes from one column to the next. Every adjacent column should have a clear
+reason to exist. Preserve the actual sample by column and make changes in
+controls, fixed effects, estimators, weights, or denominators discoverable in a
+specification row or note.
+
+If a heterogeneity claim compares groups, report an interaction or equality
+test rather than inferring a difference from one coefficient having stars and
+another not having stars. In event-study displays, identify the omitted period
+and do not treat it as an estimated zero.
+
 ## Default visual grammar
 
 - Put the table number and concise title above the table.

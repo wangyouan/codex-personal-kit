@@ -7,7 +7,7 @@ description: Create, reformat, convert, and audit publication-ready tables for e
 
 Produce publication-facing tables without changing the underlying evidence. Treat this skill as the formatting and consistency layer after estimation; do not run regressions here.
 
-This is a shared Agent Skill for Claude Code and Codex at the instruction, canonical-specification, LaTeX, and Word layers. Codex may additionally use `agents/openai.yaml` and the `@oai/artifact-tool` Excel adapter; other clients may ignore or replace those Codex-specific surfaces.
+This is a shared Agent Skill for Claude Code and Codex at the instruction, canonical-specification, LaTeX, and Word layers. Codex may additionally use `agents/openai.yaml` and the bundled Excel adapter; other clients may ignore or replace those Codex-specific surfaces.
 
 ## Non-negotiable rules
 
@@ -26,7 +26,14 @@ This is a shared Agent Skill for Claude Code and Codex at the instruction, canon
 2. Read [table-standard.md](references/table-standard.md) for the shared publication rules.
 3. If a project or journal template exists, inspect it before formatting. Read [house-style.md](references/house-style.md) when matching the author's recurring style.
 4. Normalize the content to the canonical structure in [table-spec.md](references/table-spec.md). Use `scripts/validate_spec.py` before generation.
-5. Read only the requested format section in [formats.md](references/formats.md), then generate and verify the artifact.
+5. For regression or robustness tables, read [research-integrity.md](references/research-integrity.md) and retain sample-audit information when it is available.
+6. Read only the requested format section in [formats.md](references/formats.md), then generate and verify the artifact.
+
+Before formatting, write a short column plan: what comparison the table is
+meant to make, the outcome and sample in each column, what changes between
+models, and the inference convention. If the source is only a pasted result
+extract or an existing image/PDF, structural formatting can proceed, but do
+not claim that the numerical results were independently recomputed.
 
 ## Accept inputs
 
@@ -35,6 +42,28 @@ This is a shared Agent Skill for Claude Code and Codex at the instruction, canon
 - Convert raw factor-variable names into publication labels only when the mapping is unambiguous; retain the raw name in a warning otherwise.
 - Separate table content from presentation by building a JSON table specification. Use `assets/examples/` as synthetic patterns, never as empirical defaults.
 - When converting among formats, reuse one normalized specification so that all outputs share the same values and notes.
+
+### Long-format CSV import
+
+For a pandas-readable long export, use the Anaconda `codex` environment and
+convert it into the same canonical specification used by every builder:
+
+```powershell
+conda run -n codex python scripts/import_long_results.py results.csv --output table.json --profile english-paper --table-type regression --cluster firm
+```
+
+The importer recognizes common English and Chinese aliases for outcome,
+specification, coefficient, standard error/t/z, p-value, stars, observations,
+unit counts, controls, fixed effects, estimator, and clustering. Add
+`--term-column` when the CSV contains multiple coefficient variables; without
+it, the focal variable is named `Treatment`. It rejects duplicate
+specification/outcome/term cells rather than silently selecting one row.
+
+Choose one output profile unless a journal or project template overrides it:
+`chinese-journal` (four decimals), `english-paper` (three decimals), or
+`compact-report` (internal review). The importer preserves sample-audit fields
+and records sign changes, sample-size changes, and design-metadata changes as
+review flags; these flags require human review before publication.
 
 ## Generate outputs
 
@@ -72,6 +101,8 @@ Check that:
 - long variable names are widened, abbreviated with a definition, or wrapped at word boundaries rather than split mid-token;
 - multipage outputs repeat headers and show a continuation label;
 - notes appear only once, after the final table segment.
+- heterogeneity or subgroup tables show an interaction/equality test when the claim requires comparing groups;
+- event-study tables identify the omitted/reference period and never display it as an estimated zero.
 
 ## Boundaries and collaboration
 

@@ -16,6 +16,7 @@ TABLE_TYPES = {
 }
 ROW_KINDS = {"coefficient", "statistic", "data", "metadata", "panel", "spacer"}
 STATISTIC_TYPES = {"standard_error", "t_statistic", "z_statistic"}
+PROFILES = {"chinese-journal", "english-paper", "compact-report"}
 
 
 def load_specs(path: str | Path) -> list[dict[str, Any]]:
@@ -41,6 +42,8 @@ def validate_spec(spec: dict[str, Any]) -> tuple[list[str], list[str]]:
         errors.append(f"unsupported table_type: {spec['table_type']}")
     if spec["language"] not in {"en", "zh"}:
         errors.append("language must be 'en' or 'zh'")
+    if spec.get("profile") is not None and spec["profile"] not in PROFILES:
+        errors.append("profile must be chinese-journal, english-paper, or compact-report")
     if not isinstance(spec["columns"], list) or not spec["columns"]:
         errors.append("columns must be a non-empty array")
         return errors, warnings

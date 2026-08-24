@@ -223,7 +223,7 @@ install_name = "zotero-librarian"
 source_repo = "wangyouan/claude-personal-kit"
 source_ref = "main"
 exportable = true
-post_install = "Reads zotero.sqlite read-only and generates a script for execution inside Zotero."
+post_install = "Uses a temporary read-only SQLite snapshot for external audits and Zotero's internal JavaScript API for live collection reads; no need to close Zotero."
 
 [[skill]]
 name = "humanizer"
