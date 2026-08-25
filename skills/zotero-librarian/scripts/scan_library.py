@@ -48,23 +48,6 @@ class Library:
     def __exit__(self, _exc_type, _exc, _tb):
         self.close()
 
-
-def snapshot_database(source_path, destination_path):
-    """Create a consistent temporary copy using SQLite's online backup API."""
-    source = Path(source_path).expanduser().resolve()
-    if not source.is_file():
-        raise FileNotFoundError(f'Zotero database not found: {source}')
-    source_uri = source.as_uri() + '?mode=ro'
-    src = sqlite3.connect(source_uri, uri=True, timeout=30)
-    dst = sqlite3.connect(str(destination_path))
-    try:
-        src.execute('PRAGMA busy_timeout = 30000')
-        src.backup(dst, pages=100, sleep=0.1)
-        dst.commit()
-    finally:
-        dst.close()
-        src.close()
-
     def _load(self):
         cur = self.cur
         deleted = set(r[0] for r in cur.execute("SELECT itemID FROM deletedItems"))
@@ -312,6 +295,23 @@ def snapshot_database(source_path, destination_path):
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(out, f, ensure_ascii=False)
         print(f"\nwrote {len(out)} items to {path}")
+
+
+def snapshot_database(source_path, destination_path):
+    """Create a consistent temporary copy using SQLite's online backup API."""
+    source = Path(source_path).expanduser().resolve()
+    if not source.is_file():
+        raise FileNotFoundError(f'Zotero database not found: {source}')
+    source_uri = source.as_uri() + '?mode=ro'
+    src = sqlite3.connect(source_uri, uri=True, timeout=30)
+    dst = sqlite3.connect(str(destination_path))
+    try:
+        src.execute('PRAGMA busy_timeout = 30000')
+        src.backup(dst, pages=100, sleep=0.1)
+        dst.commit()
+    finally:
+        dst.close()
+        src.close()
 
 
 def main():
