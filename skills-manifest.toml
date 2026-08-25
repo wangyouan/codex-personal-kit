@@ -404,3 +404,13 @@ source_repo = "local"
 source_ref = "v3.1.0"
 exportable = false
 post_install = "Archived only; never installed automatically."
+
+[[skill]]
+name = "csmar-proxy-download"
+mode = "archive"
+source_path = "archive/csmar-proxy-download"
+install_name = "csmar-proxy-download"
+source_repo = "wangyouan/workbuddy-personal-kit"
+source_ref = "main"
+exportable = false
+post_install = "Archive only; requires authorized CSMAR access, local proxy, Playwright, and interactive credentials. Never commit credentials."

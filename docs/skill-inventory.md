@@ -18,6 +18,8 @@ The repository includes three research skills migrated from the local Claude kit
 
 `econ-fin-writing` is the active academic economics, finance, and accounting writing skill. The old JF writing guide is archived in `archive/jf-writing-style-guide` and is never installed.
 
+`csmar-proxy-download` is a sanitized favorite migrated from the Workbuddy kit. It preserves the authorized CSMAR browser-download workflow and Excel integrity check, but remains in `archive/csmar-proxy-download` because it depends on third-party services, interactive credentials, and changing page selectors. It is never installed automatically.
+
 `format-econ-fin-tables` creates and audits publication-ready regression, descriptive, correlation, variable-definition, difference-test, and robustness tables in LaTeX, editable Word, and Excel. Its core instructions and canonical specification are shared by Claude Code and Codex; the Codex Excel adapter uses the bundled spreadsheet runtime.
 
 ## External Skills
