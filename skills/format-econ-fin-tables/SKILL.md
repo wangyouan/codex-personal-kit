@@ -67,6 +67,12 @@ review flags; these flags require human review before publication.
 
 ## Generate outputs
 
+### Python and StatsPAI results
+
+When results come from Python or `StatsPAI`, treat the estimator object as a source of values and metadata, not as proof of cross-language correctness. Preserve the package version, estimator name, sample information, clustering, fixed effects, and any available validation or parity status in the normalized table specification. Prefer the result object's tidy/summary data as input to the same canonical specification used for Stata and R exports; do not create a second table format just because the backend is Python.
+
+For `StatsPAI` results, inspect `validation_status` or parity metadata when available. Report certified or validated status separately from an API-stable result, and flag unverified parity for human review. Tables may be exported to Word, Excel, and LaTeX from the same normalized specification, but the publication table must still pass the local numeric, inference, and layout audits.
+
 ### LaTeX
 
 Run `scripts/build_table.py SPEC --format latex --output OUTPUT.tex`. Use `booktabs`; use `longtable` for multipage tables; do not use vertical rules or whole-table scaling. Include required packages and keep coefficient/statistic pairs together.

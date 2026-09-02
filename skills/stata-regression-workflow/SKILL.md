@@ -1,4 +1,4 @@
-﻿---
+---
 name: stata-regression-workflow
 description: Use when Codex needs to run, reproduce, debug, or document empirical regression workflows involving Stata, including calling Stata from Windows batch mode, running .do files, checking .log errors, comparing Stata with R/fixest or Python reproductions, and organizing regression outputs into CSV/XLSX reports.
 ---
@@ -62,6 +62,18 @@ After every run, inspect the newest `.log` or the log explicitly created by the 
 
 If a user-written Stata package is missing, report it and ask before installing via `ssc install` if network access or environment changes are needed.
 
+## Methodological Guardrails
+
+Apply these checks before trusting generated Stata code or regression output:
+
+- Stata numeric missing values sort above every finite number. Guard comparisons and sample restrictions with `!missing(...)` when missingness could otherwise be treated as a large value.
+- Use factor-variable notation deliberately: `i.` for categorical variables and `c.` for continuous variables. For interactions, distinguish `##` (main effects plus interaction) from `#` (interaction term only).
+- After every `merge`, inspect `_merge`, verify the expected match pattern, and only then drop the diagnostic variable.
+- Use `bysort` unless the data have been explicitly sorted before a `by` prefix. Create stable IDs before any `preserve`/`restore` block that sorts or subsets data.
+- Preserve estimation results before running commands that overwrite `e()`. Check `_rc` after `capture`; a suppressed error is still a failed step.
+- Do not treat `fweight`, `aweight`, `pweight`, and `iweight` as interchangeable. Record the weighting rationale in the analysis notes.
+- For event studies and staggered treatment timing, state the omitted period, treatment cohort definition, pre-trend test, and estimator-specific identifying assumptions. Do not present a two-way fixed-effects coefficient as automatically causal.
+
 ## Result Reporting
 
 When reporting regression output, include:
@@ -88,8 +100,16 @@ If Stata is unavailable, slow, or hard to automate, reproduce linear FE models i
 
 Report any expected differences from Stata commands, especially if Stata used specialized estimators or finite-sample corrections.
 
+## Python Panel Reproduction
+
+When reproducing a panel model in the Anaconda `codex` environment, make the panel structure explicit before estimation:
+
+- Validate entity and time identifiers, duplicate entity-time rows, missingness, and balanced versus unbalanced coverage.
+- Set a clear entity-time index for `linearmodels`, and specify entity effects, time effects, and clustering explicitly rather than relying on defaults.
+- Match Stata's sample restrictions, variable scaling, fixed effects, interaction construction, and clustering level before comparing coefficients.
+- Treat Python output as a reproduction only after reconciling observations, absorbed effects, standard errors, and any estimator-specific finite-sample correction.
+
 ## Project-Specific References
 
 If a project has its own path conventions, sample restrictions, report naming, or current result workflow, keep those notes in `references/` and read the relevant file before editing or running regressions.
-
 

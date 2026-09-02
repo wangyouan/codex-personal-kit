@@ -22,6 +22,8 @@ The repository includes three research skills migrated from the local Claude kit
 
 `format-econ-fin-tables` creates and audits publication-ready regression, descriptive, correlation, variable-definition, difference-test, and robustness tables in LaTeX, editable Word, and Excel. Its core instructions and canonical specification are shared by Claude Code and Codex; the Codex Excel adapter uses the bundled spreadsheet runtime.
 
+The 2026-09-02 external skill review is recorded in `docs/skill-review-2026-09-02.md`. It selectively incorporated Stata silent-failure checks and Python panel-data safeguards into `skills/stata-regression-workflow`, and added AERS-inspired Python result provenance and empirical prose-audit rules to the table and writing skills. `StatsPAI==1.23.0` is installed in the local Anaconda `codex` environment as an optional backend.
+
 ## External Skills
 
 `humanizer`, `academic-research-suite`, and the 15 Context Engineering skills are installed from immutable upstream references recorded in `skills-manifest.toml`. They are not copied from one computer to another.

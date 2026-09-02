@@ -138,6 +138,16 @@ Use an evidence ladder:
 
 Economics generally permits stronger causal wording after a credible design. Finance foregrounds economic magnitude and mechanisms. Accounting relies more heavily on theory, measurement validity, predictions, and “consistent with.” Chinese economics/management typically uses “研究发现/研究表明” and connects evidence to policy without inflated advocacy.
 
+## Empirical Prose Audit Loop
+
+For a substantial empirical manuscript passage, use a two-pass loop before returning the final revision:
+
+1. Audit the passage without editing for formulaic wording, uniform sentence rhythm, repeated paragraph structure, unsupported causal verbs, and claims that lack a number, table, figure, or citation anchor.
+2. Revise at the level of paragraph function and evidence, not by mechanical synonym replacement. Make concrete research choices, trade-offs, limitations, and surprising or null findings visible when they are present in the source.
+3. Re-read as a cold reader and compare every number, coefficient, standard error, p-value, sample size, citation, equation, and named variable against the original. Zero factual drift is the acceptance condition.
+
+This is an academic clarity and integrity pass, not a promise to evade an AI detector. Never weaken or alter a research claim merely to improve a style score; flag a claim-evidence mismatch when the source does not support a safe rewrite.
+
 ## Audit the output
 
 Before returning generated or revised prose:
