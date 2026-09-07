@@ -18,9 +18,11 @@ With no flags it prints a summary of everything.
 import argparse
 import json
 import re
+import shutil
 import sqlite3
 import sys
 import tempfile
+import time
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -29,6 +31,9 @@ REGULAR = ('journalArticle', 'preprint', 'report', 'bookSection', 'book',
 
 CJK = re.compile(r'[一-鿿]')
 EMAIL = re.compile(r'[A-Za-z0-9._%\-]+@[A-Za-z0-9._%\-]+')   # ASCII only: \w eats CJK
+
+TEMP_PREFIXES = ('zotero-scan-', 'zotero-snapshot-')
+STALE_TEMP_MIN_AGE_SECONDS = 24 * 60 * 60
 
 
 class Library:
@@ -314,6 +319,54 @@ def snapshot_database(source_path, destination_path):
         src.close()
 
 
+def remove_zotero_temp_directory(path, attempts=4):
+    """Remove one verified Zotero temp directory, retrying Windows file locks."""
+    temp_root = Path(tempfile.gettempdir()).resolve()
+    candidate = Path(path)
+    try:
+        resolved = candidate.resolve()
+    except OSError:
+        return False
+    if (resolved.parent != temp_root
+            or not resolved.name.startswith(TEMP_PREFIXES)
+            or candidate.is_symlink()):
+        raise ValueError(f'refusing to remove unexpected temporary path: {candidate}')
+
+    for attempt in range(attempts):
+        try:
+            shutil.rmtree(resolved)
+            return True
+        except FileNotFoundError:
+            return True
+        except OSError:
+            if attempt + 1 == attempts:
+                return False
+            time.sleep(0.25 * (attempt + 1))
+    return False
+
+
+def cleanup_stale_zotero_temp_directories(min_age_seconds=STALE_TEMP_MIN_AGE_SECONDS):
+    """Remove abandoned scanner directories while leaving active scans alone."""
+    temp_root = Path(tempfile.gettempdir()).resolve()
+    cutoff = time.time() - min_age_seconds
+    failures = []
+    try:
+        candidates = list(temp_root.iterdir())
+    except OSError:
+        return failures
+    for candidate in candidates:
+        try:
+            if (candidate.is_symlink() or not candidate.is_dir()
+                    or not candidate.name.startswith(TEMP_PREFIXES)
+                    or candidate.stat().st_mtime > cutoff):
+                continue
+            if not remove_zotero_temp_directory(candidate):
+                failures.append(candidate)
+        except OSError:
+            failures.append(candidate)
+    return failures
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('db')
@@ -326,30 +379,42 @@ def main():
     ap.add_argument('--json', metavar='PATH')
     a = ap.parse_args()
 
+    stale_failures = cleanup_stale_zotero_temp_directories()
+    temp_dir = Path(tempfile.mkdtemp(prefix='zotero-snapshot-'))
+    scan_error = None
     try:
-        with tempfile.TemporaryDirectory(prefix='zotero-snapshot-') as tmp:
-            snapshot = Path(tmp) / 'zotero.sqlite'
-            snapshot_database(a.db, snapshot)
-            with Library(snapshot) as lib:
-                lib.summary()
-                everything = not any([a.tree, a.tags, a.recent, a.unfiled, a.quality,
-                                      a.case_audit, a.json])
-                if a.tree or everything:
-                    lib.tree()
-                if a.tags or everything:
-                    lib.tags()
-                if a.recent:
-                    lib.recent(a.recent)
-                if a.unfiled or everything:
-                    lib.unfiled()
-                if a.quality or everything:
-                    lib.quality()
-                if a.case_audit or everything:
-                    lib.case_audit()
-                if a.json:
-                    lib.dump(a.json)
+        snapshot = temp_dir / 'zotero.sqlite'
+        snapshot_database(a.db, snapshot)
+        with Library(snapshot) as lib:
+            lib.summary()
+            everything = not any([a.tree, a.tags, a.recent, a.unfiled, a.quality,
+                                  a.case_audit, a.json])
+            if a.tree or everything:
+                lib.tree()
+            if a.tags or everything:
+                lib.tags()
+            if a.recent:
+                lib.recent(a.recent)
+            if a.unfiled or everything:
+                lib.unfiled()
+            if a.quality or everything:
+                lib.quality()
+            if a.case_audit or everything:
+                lib.case_audit()
+            if a.json:
+                lib.dump(a.json)
     except (OSError, sqlite3.DatabaseError) as e:
-        sys.exit(f"cannot create or read temporary Zotero snapshot ({e}).\n"
+        scan_error = e
+    finally:
+        cleaned = remove_zotero_temp_directory(temp_dir)
+
+    if stale_failures:
+        print('warning: could not remove old Zotero temporary directories: '
+              + ', '.join(str(p) for p in stale_failures), file=sys.stderr)
+    if not cleaned:
+        sys.exit(f'scan finished but could not remove temporary directory: {temp_dir}')
+    if scan_error is not None:
+        sys.exit(f"cannot create or read temporary Zotero snapshot ({scan_error}).\n"
                  "The original database was not modified; retry after Zotero finishes a sync if needed.")
 
 

@@ -21,7 +21,13 @@ So: **analysis in Python (read-only) → decisions → emit one `.js` file → t
 
 Do not ask the user to close Zotero. `scripts/scan_library.py` creates a
 consistent temporary SQLite snapshot with the SQLite online backup API, reads
-only that snapshot, and deletes the temporary directory when the scan exits.
+only that snapshot, and deletes the temporary directory in a `finally` cleanup
+when the scan exits, including error exits. It retries transient Windows file
+locks and reports a cleanup failure rather than silently leaving a copy. At the
+start of the next scan it also removes abandoned `zotero-scan-*` and
+`zotero-snapshot-*` directories older than 24 hours, while leaving newer scans
+alone. Any ad-hoc Zotero snapshot must follow the same verified-prefix,
+`try`/`finally` cleanup pattern rather than leaving a manual copy in `%TEMP%`.
 The original `zotero.sqlite` is never written to. This also includes the
 current `-wal` state seen by SQLite while the snapshot is made, so Zotero can
 remain open during the scan.
