@@ -1,6 +1,6 @@
 ---
 name: econ-fin-writing
-description: Polish, rewrite, translate, structure, or referee-review economics, finance, accounting, and Chinese economics/management manuscripts in the register of leading journals. Use for manuscript passages or local .tex, .md, .txt, .docx, and .pdf files; journal-style abstracts and introductions; JF/JFE/RFS/AER/QJE/TAR-style prose; Chinese-to-English academic translation; referee reports and response letters; contribution, identification, mechanism, and results framing; phrase alternatives; and natural, non-formulaic academic editing that preserves claims, citations, equations, and numbers.
+description: Polish, rewrite, translate, structure, or referee-review economics, finance, accounting, and Chinese economics/management manuscripts. Use for titles, abstracts, introductions, policy motivation, contributions, results, and response letters; includes corpus-grounded Chinese writing for 经济研究 and English JF/JFE/RFS/AER/QJE/TAR registers. Supports manuscript passages and local .tex, .md, .txt, .docx, and .pdf files while preserving claims, citations, equations, and numbers.
 ---
 
 # Econ-Fin-Writing
@@ -38,6 +38,7 @@ Apply these overlap rules:
 - Route a disclosure or tax paper targeting an accounting journal to Accounting even when it uses an economics-style natural experiment.
 - Route by target venue when venue and topic disagree.
 - Route an English translation by the target venue, not by the source language.
+- For Chinese manuscripts targeting 《经济研究》 or a forum explicitly using its writing style, read [经济研究写作](references/chinese-erj.md) after the Chinese module. Its corpus-grounded guidance takes precedence over generic section templates and English-derived style heuristics. Read its linked corpus notes only when source examples or provenance are needed.
 
 Read the selected field module completely before drafting or revising.
 
@@ -76,6 +77,8 @@ Identify the passage's function—title, abstract, introduction, theory, design,
 3. Preserve technical terms and factual content. If the source is ambiguous, keep the ambiguity visible or flag it instead of silently resolving it.
 4. When the user explicitly requires every claim to be preserved, retain an overstrong claim in the main revision but flag it clearly; do not disguise it by replacing “prove” with an equally definitive synonym. Without that constraint, calibrate the wording to the evidence available.
 5. Return the revised passage first. Follow with only the change notes that help the author evaluate substantive editorial choices.
+
+Keep polishing distinct from refereeing. A request to strengthen a Chinese manuscript's story, policy relevance, or journal register calls for editorial work at that level. Do not turn it into a default econometric audit or a list of additional regressions. Flag a material factual or claim-evidence conflict briefly when it prevents a sound revision; undertake broader review only when requested or necessary to resolve that conflict.
 
 ### Translate Chinese to English
 
@@ -142,7 +145,7 @@ Economics generally permits stronger causal wording after a credible design. Fin
 
 For a substantial empirical manuscript passage, use a two-pass loop before returning the final revision:
 
-1. Audit the passage without editing for formulaic wording, uniform sentence rhythm, repeated paragraph structure, unsupported causal verbs, and claims that lack a number, table, figure, or citation anchor.
+1. Audit the passage without editing for formulaic wording, uniform sentence rhythm, repeated paragraph structure, unsupported causal verbs, and claims unsupported by the manuscript's evidence. An evidential anchor may be in a table, note, or later section; do not require every abstract or introductory claim to repeat a coefficient or a test statistic.
 2. Revise at the level of paragraph function and evidence, not by mechanical synonym replacement. Make concrete research choices, trade-offs, limitations, and surprising or null findings visible when they are present in the source.
 3. Re-read as a cold reader and compare every number, coefficient, standard error, p-value, sample size, citation, equation, and named variable against the original. Zero factual drift is the acceptance condition.
 
@@ -153,14 +156,15 @@ This is an academic clarity and integrity pass, not a promise to evade an AI det
 Before returning generated or revised prose:
 
 1. Read [Naturalness and style audit](references/ai-fingerprint-defense.md).
-2. Remove formulaic connectors, empty importance claims, mechanical symmetry, translationese, and over-polished repetition.
-3. For a local plain-text or Markdown passage of roughly 200 words or more, run:
+2. Remove empty importance claims, mechanical repetition, and translationese. Judge connectors, parallel structures, and paragraph length by the selected field module; Chinese numbered contributions and policy exposition are not defects by themselves.
+3. For a predominantly English local plain-text or Markdown passage of roughly 200 words or more, run:
 
 ```powershell
 python scripts/style_audit.py path\to\passage.txt
 ```
 
 Use `--json` for machine-readable output. Treat metrics as diagnostics, not proof that prose is human-written or “detector-safe.”
+For Chinese prose, use a contextual editorial read. The script's word-based thresholds do not establish Chinese readability or journal fit; running it is optional and its phrase flags must not become word bans.
 4. Verify claims, citations, numbers, equations, and cross-references against the source.
 5. Verify that each interpretive label—such as transparency, efficiency, welfare, risk, or quality—actually follows from the reported measure.
 6. Briefly report the checks that matter. Do not clutter a short answer with metrics unless they informed a revision.
