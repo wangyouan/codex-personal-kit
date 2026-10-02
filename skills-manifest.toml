@@ -36,6 +36,31 @@ exportable = true
 post_install = "Set STATA_EXE locally when auto-discovery cannot find Stata."
 
 [[skill]]
+name = "r-econometrics"
+mode = "vendor"
+source_path = "skills/r-econometrics"
+install_name = "r-econometrics"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+dependencies = "R; fixest, did, rdrobust, rddensity for core methods; optional packages per method."
+post_install = "Detect Rscript or set RSCRIPT_EXE locally; use a project renv library and run scripts/smoke_test.R before relying on a new runtime."
+
+[[skill]]
+name = "pyfixest"
+mode = "vendor"
+source_path = "skills/pyfixest"
+install_name = "pyfixest"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+upstream_repo = "Barrios88/barrios-skills"
+upstream_path = "skills/econometrics/pyfixest"
+upstream_ref = "d50afc62f4c67535a1949d029dfa0462feb906fd"
+exportable = true
+dependencies = "Python >= 3.10; pyfixest==0.60.0 tested in Python 3.12."
+post_install = "Use an isolated Python environment; install scripts/requirements-pyfixest.txt and run scripts/smoke_test.py. CODEX_PYFIXEST_PYTHON is a local optional override."
+
+[[skill]]
 name = "stata-runner"
 mode = "vendor"
 source_path = "skills/stata-runner"
@@ -44,6 +69,20 @@ source_repo = "wangyouan/codex-personal-kit"
 source_ref = "main"
 exportable = true
 post_install = "Set STATA_EXE locally when auto-discovery cannot find Stata."
+
+[[skill]]
+name = "sec-edgar"
+mode = "vendor"
+source_path = "skills/sec-edgar"
+install_name = "sec-edgar"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+upstream_repo = "Barrios88/barrios-skills"
+upstream_path = "skills/research-tools/sec-edgar"
+upstream_ref = "d50afc62f4c67535a1949d029dfa0462feb906fd"
+exportable = true
+dependencies = "Python >= 3.11; sec-edgar-mcp==1.1.0; network access to SEC."
+post_install = "Install the MCP in an isolated local environment and register stdio with a real SEC_EDGAR_USER_AGENT. Keep identity and MCP configuration local."
 
 [[skill]]
 name = "xmu-mail"

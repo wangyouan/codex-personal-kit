@@ -87,6 +87,8 @@ Not sure? Use `full` for pre-submission review, `re-review` for post-revision ve
 
 ## Orchestration Workflow (3 Phases)
 
+For economics, finance, and archival accounting reviews, read [Verified empirical comments](references/verified-empirical-comments.md) before producing substantive comments. Keep the user's selected review mode; this reference adds evidence traceability, not additional reviewer agents or automatic manuscript editing.
+
 ```
 User: "Review this paper"
      |

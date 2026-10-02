@@ -1,6 +1,6 @@
 ---
 name: econ-fin-writing
-description: Polish, rewrite, translate, structure, or referee-review economics, finance, accounting, and Chinese economics/management manuscripts. Use for titles, abstracts, introductions, policy motivation, contributions, results, and response letters; includes corpus-grounded Chinese writing for 经济研究 and English JF/JFE/RFS/AER/QJE/TAR registers. Supports manuscript passages and local .tex, .md, .txt, .docx, and .pdf files while preserving claims, citations, equations, and numbers.
+description: Polish, rewrite, translate, structure, or referee-review economics, finance, accounting, and Chinese economics/management manuscripts. Use for titles, abstracts, introductions, policy motivation, contributions, results, and response letters; includes corpus-grounded Chinese writing for 经济研究 and 数量经济技术经济研究 and English JF/JFE/RFS/AER/QJE/TAR registers. Supports manuscript passages and local .tex, .md, .txt, .docx, and .pdf files while preserving claims, citations, equations, and numbers.
 ---
 
 # Econ-Fin-Writing
@@ -40,6 +40,8 @@ Apply these overlap rules:
 - Route an English translation by the target venue, not by the source language.
 - For Chinese manuscripts targeting 《经济研究》 or a forum explicitly using its writing style, read [经济研究写作](references/chinese-erj.md) after the Chinese module. Its corpus-grounded guidance takes precedence over generic section templates and English-derived style heuristics. Read its linked corpus notes only when source examples or provenance are needed.
 
+- For Chinese manuscripts targeting 《数量经济技术经济研究》 or explicitly adopting its style, read [数经技经写作](references/chinese-jqte.md) after the Chinese module. Its source inventory distinguishes same-journal evidence from cross-journal supplements. Journal co-sponsorship of a conference does not imply journal acceptance.
+
 Read the selected field module completely before drafting or revising.
 
 ### Choose the primary task
@@ -51,6 +53,8 @@ Read the selected field module completely before drafting or revising.
 | Referee response or response letter | Read [Referee response](references/referee-response.md) |
 | Section structure, transitions, or paper skeleton | Use the selected field module's section architecture |
 | Motivation, identification, contribution, or phrase alternatives | Read [Project phrasebook](references/project-phrasebook.md) when the topic matches |
+| Identification-section prose or interpretation of IV, DiD, RDD, synthetic control, or causal ML | Read [Method-specific empirical narrative](references/method-specific-empirical-narrative.md) |
+| Economics, finance, or accounting referee report | Also read [Verified referee comments](references/verified-referee-comments.md) |
 
 Load only the selected field module and the task references that are needed. Do not load every reference by default.
 

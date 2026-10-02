@@ -10,6 +10,7 @@ Use this skill for empirical regression tasks where Stata is part of the workflo
 ## Core Workflow
 
 1. Locate the project root and identify the active regression file, data file, output directory, and expected result format.
+   For raw-data preparation, merges, variable construction, or unexplained sample changes, read [Data construction and sample audit](references/data-construction-audit.md).
 2. Determine whether the task should run Stata directly, reproduce Stata results in R/Python, or only inspect existing logs/results.
 3. If running Stata, use batch mode and write logs to a dated output directory.
 4. After running, inspect the `.log` before trusting output files.
@@ -99,6 +100,8 @@ If Stata is unavailable, slow, or hard to automate, reproduce linear FE models i
 - IV first and second stage definitions
 
 Report any expected differences from Stata commands, especially if Stata used specialized estimators or finite-sample corrections.
+
+Use the installed `r-econometrics` skill for R-specific IV, staggered DiD, and RDD implementation. Use `pyfixest` for Python high-dimensional FE and supported DiD estimators. Preserve the original design when changing software; differences in estimands require explicit explanation.
 
 ## Python Panel Reproduction
 
