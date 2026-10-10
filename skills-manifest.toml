@@ -92,7 +92,7 @@ install_name = "xmu-mail"
 source_repo = "wangyouan/codex-personal-kit"
 source_ref = "main"
 exportable = true
-post_install = "Create a local DPAPI credential with scripts/xmu-mail.ps1; never commit it."
+post_install = "Reuse existing XMU_MAIL_USER and XMU_MAIL_PASSWORD environment variables; check the actual Windows user's saved environment before optional DPAPI fallback. Never commit credentials."
 
 [[skill]]
 name = "systematic-literature-review"
