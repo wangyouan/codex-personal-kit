@@ -85,6 +85,17 @@ dependencies = "Python >= 3.11; sec-edgar-mcp==1.1.0; network access to SEC."
 post_install = "Install the MCP in an isolated local environment and register stdio with a real SEC_EDGAR_USER_AGENT. Keep identity and MCP configuration local."
 
 [[skill]]
+name = "amdserver-access"
+mode = "vendor"
+source_path = "skills/amdserver-access"
+install_name = "amdserver-access"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+dependencies = "OpenSSH client; authorized private-network route and local SSH authentication."
+post_install = "Configure authorized LAN/VPN routing and SSH authentication on each computer; verify the expected server hostname. Never synchronize SSH keys or credentials."
+
+[[skill]]
 name = "xmu-mail"
 mode = "vendor"
 source_path = "skills/xmu-mail"

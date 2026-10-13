@@ -1,0 +1,4 @@
+interface:
+  display_name: "AMD Server Access"
+  short_description: "Access AMD server and locate research datasets"
+  default_prompt: "Use $amdserver-access to verify my AMD server connection and locate the requested data without changing existing files or environments."
