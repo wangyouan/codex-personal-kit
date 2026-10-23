@@ -1,0 +1,4 @@
+interface:
+  display_name: "录音转录与归档"
+  short_description: "复用本机语音模型转录面谈录音，保留时间戳并完成校对与个人目录归档"
+  default_prompt: "请使用 $audio-transcribe-archive 转录这份录音，校对并归档到对应个人目录。"

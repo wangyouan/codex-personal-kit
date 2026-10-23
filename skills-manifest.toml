@@ -85,6 +85,17 @@ dependencies = "Python >= 3.11; sec-edgar-mcp==1.1.0; network access to SEC."
 post_install = "Install the MCP in an isolated local environment and register stdio with a real SEC_EDGAR_USER_AGENT. Keep identity and MCP configuration local."
 
 [[skill]]
+name = "audio-transcribe-archive"
+mode = "vendor"
+source_path = "skills/audio-transcribe-archive"
+install_name = "audio-transcribe-archive"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+dependencies = "Compatible Python 3.12; faster-whisper, PyAV, CTranslate2 and a local large-v3-turbo model; CUDA libraries for GPU use."
+post_install = "Use the local Anaconda codex environment or CODEX_AUDIO_PYTHON; configure --libs/--model and run scripts/transcribe.py --check. Keep recordings, transcripts, models and runtime dependencies local."
+
+[[skill]]
 name = "amdserver-access"
 mode = "vendor"
 source_path = "skills/amdserver-access"

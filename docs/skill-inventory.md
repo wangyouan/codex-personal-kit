@@ -14,6 +14,8 @@ The repository copies these self-maintained skills into `~/.codex/skills`: `econ
 
 The repository also manages eight NSFC proposal skills: `nsfc-qc`, `nsfc-ref-alignment`, `nsfc-length-aligner`, `nsfc-abstract`, `nsfc-research-content-writer`, `nsfc-research-foundation-writer`, `nsfc-reviewers`, and `nsfc-justification-writer`.
 
+`audio-transcribe-archive` transcribes local recordings with faster-whisper, preserves timestamped transcripts and source hashes, and supports task-authorized archival and proofreading. Each computer needs a compatible Python 3.12 environment, audio dependencies and a local model; GPU use also needs matching CUDA libraries. Use `CODEX_AUDIO_PYTHON`, `--libs` and `--model` for local configuration. Recordings, transcripts, personal case details, model weights and runtime dependencies are not synchronized with the skill.
+
 `amdserver-access` records the user's AMD intranet server connection workflow, verified research-data locations, and project runtime navigation. It uses existing SSH access and includes checks for the expected hostname, transfer destinations, and task authorization. Each computer needs its own authorized private-network route and SSH authentication; the skill does not contain or synchronize keys or credentials. Recorded paths and verification dates are navigation aids and must be rechecked before use.
 
 The repository includes three research skills migrated from the local Claude kit: `academic-paper-reviewer`, `theoretical-economics-orchestrator`, and `zotero-librarian`. The theoretical economics skill retains its upstream MIT license and attribution. The reviewer skill is read-only; the Zotero skill reads the database read-only and generates scripts for the user to run inside Zotero.
