@@ -1,6 +1,6 @@
 ---
 name: stata-regression-workflow
-description: Use when Codex needs to run, reproduce, debug, or document empirical regression workflows involving Stata, including calling Stata from Windows batch mode, running .do files, checking .log errors, comparing Stata with R/fixest or Python reproductions, and organizing regression outputs into CSV/XLSX reports.
+description: Run, reproduce, debug, or document Stata regressions, including high-dimensional fixed-effect OLS/WLS with fereg and PPML with feppml, Stata batch jobs and log checks, cross-software reproduction, and regression output.
 ---
 
 # Stata Regression Workflow
@@ -16,6 +16,12 @@ Use this skill for empirical regression tasks where Stata is part of the workflo
 4. After running, inspect the `.log` before trusting output files.
 5. Summarize sample restrictions, fixed effects, clustering, key coefficients, and any failed models.
 6. If creating `.xlsx` reports, use the spreadsheet skill/artifact-tool workflow and keep generated inspection files out of final outputs.
+
+## Default High-Dimensional Fixed-Effect Commands
+
+- For new routine Stata specifications, prefer Schmieder's `fereg` for supported linear OLS/WLS with absorbed effects and `feppml` for supported PPML with a nonnegative outcome. Select the model and clustering from the research design first.
+- For an exact replication, preserve the original command, version and options. Keep `reghdfe` and `ppmlhdfe` as comparison and fallback commands; preserve dedicated estimators for IV, modern DiD, and other designs outside these two model classes.
+- Read [Schmieder fereg and feppml](references/fereg-feppml.md) for the pinned installation, local benchmark, and checks before changing the estimator implementation in a project.
 
 ## Finding Stata on Windows
 
@@ -59,9 +65,9 @@ After every run, inspect the newest `.log` or the log explicitly created by the 
 - `conformability error`
 - `type mismatch`
 - `option ... not allowed`
-- missing user-written commands such as `reghdfe`, `ivreghdfe`, `esttab`, `outreg2`, `winsor2`, `astile`
+- missing user-written commands such as `fereg`, `feppml`, `reghdfe`, `ppmlhdfe`, `ivreghdfe`, `esttab`, `outreg2`, `winsor2`, `astile`
 
-If a user-written Stata package is missing, report it and ask before installing via `ssc install` if network access or environment changes are needed.
+If a package is missing, report it and install from its approved source only when the task authorizes installation. For `fereg`/`feppml`, use the author's versioned catalog in the linked reference.
 
 ## Methodological Guardrails
 
