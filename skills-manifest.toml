@@ -57,7 +57,7 @@ upstream_repo = "Barrios88/barrios-skills"
 upstream_path = "skills/econometrics/pyfixest"
 upstream_ref = "d50afc62f4c67535a1949d029dfa0462feb906fd"
 exportable = true
-dependencies = "Python >= 3.10; pyfixest==0.60.0 tested in Python 3.12."
+dependencies = "Python >= 3.11; pyfixest==0.70.0 tested in Python 3.12."
 post_install = "Use an isolated Python environment; install scripts/requirements-pyfixest.txt and run scripts/smoke_test.py. CODEX_PYFIXEST_PYTHON is a local optional override."
 
 [[skill]]

@@ -13,4 +13,10 @@ Synthetic validation covers:
 - FE-IV slopes against an independent 2SLS projection.
 - A two-stage DiD call on staggered synthetic adoption with a known constant treatment effect.
 
-Optional PPML, plotting, bootstrap and other methods must be checked when actually used. Validation results and environment versions are recorded in the personal kit's dated review document.
+On 2026-11-23, PyFixest 0.70.0 passed these checks under Windows/Python 3.12
+with the bracketed IV formula. FE coefficient: 1.4362023069111596; clustered
+SE: 0.0403844846306934; IV coefficient: 1.5616390816151482; DiD effect:
+1.9957723064596213 (true effect 2). Dependency consistency also passed.
+The resolved packages are recorded in `../scripts/requirements-lock.txt`.
+
+Optional PPML, plotting, bootstrap and other methods must be checked when actually used. These small tests do not certify every new feature or replace real-project replication checks.

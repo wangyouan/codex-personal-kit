@@ -1,5 +1,10 @@
 # Research runtime setup
 
+Latest tested package snapshot: [2026-11-23 update](package-update-2026-11-23.md).
+It covers R 4.6.0 packages, PyFixest 0.70.0 and the Stata comparison stack.
+The dated October setup below records a different machine's earlier validation;
+do not treat its runtime versions as a requirement to upgrade this machine.
+
 ## R on Windows
 
 Use the [official CRAN Windows installer](https://cran.r-project.org/bin/windows/base/),

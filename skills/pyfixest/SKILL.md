@@ -5,7 +5,7 @@ license: MIT
 metadata:
   upstream: "https://github.com/Barrios88/barrios-skills"
   upstream_ref: "d50afc62f4c67535a1949d029dfa0462feb906fd"
-  tested_pyfixest: "0.60.0"
+  tested_pyfixest: "0.70.0"
 ---
 
 # PyFixest
@@ -25,7 +25,7 @@ import pyfixest as pf
 
 ols = pf.feols("y ~ treatment + x | id + time", data=df,
                vcov={"CRV1": "assignment_cluster"})
-iv = pf.feols("y ~ x | id + time | endog ~ z", data=df,
+iv = pf.feols("y ~ x + [endog ~ z] | id + time", data=df,
               vcov={"CRV1": "assignment_cluster"})
 ppml = pf.fepois("nonnegative_y ~ treatment + x | id + time", data=df,
                  vcov={"CRV1": "assignment_cluster"})
@@ -33,6 +33,14 @@ results = ols.tidy()
 ```
 
 Names are illustrative. Inspect dropped rows, collinearity, singleton/perfect-fit removals, IV first-stage diagnostics and PPML convergence. Retain source row identifiers before estimation. Endogenous variables belong in the IV formula part; included exogenous controls also enter the first stage. Check the installed version's IV support for multiple endogenous variables.
+
+For 0.70.0, use bracketed IV blocks as above and `f1:f2` for interacted fixed
+effects. The old IV pipe syntax and `f1^f2` are deprecated. The default
+demeaner is now `within` LSMR; do not assume identical numerical behavior
+for every model. Prefer public methods such as `coef()`, `se()` and `tidy()`
+or documented result components over private attributes. `fixef()` now
+returns a DataFrame. Preserve old environments for exact replication; see
+the [official migration notes](https://pyfixest.org/changelog.html).
 
 ## DiD
 
@@ -50,7 +58,7 @@ Use `format-econ-fin-tables` for final tables and `econ-fin-writing` for authori
 
 Prefer `CODEX_PYFIXEST_PYTHON` or a project's virtual environment. This computer's managed environment can be discovered with `Join-Path $env:USERPROFILE '.codex\runtimes\pyfixest-py\Scripts\python.exe'`; if absent, detect a Python installation and create an isolated environment as needed. Record resolved versions in the project rather than relying on the name `python`.
 
-The tested direct dependency is in `scripts/requirements-pyfixest.txt`; `scripts/requirements-lock.txt` records the resolved Windows/Python 3.12 test environment. Use the direct requirement and retest when a different platform cannot satisfy the lock. No Python runtime or binary is synced as part of the skill.
+Python 3.11+ is required. The tested direct dependency is in `scripts/requirements-pyfixest.txt`; `scripts/requirements-lock.txt` records the Windows/Python 3.12 environment validated on 2026-11-23. Use the direct requirement and retest when a different platform cannot satisfy the lock. No Python runtime or binary is synced as part of the skill.
 
 ```powershell
 & $python "<skill-dir>/scripts/smoke_test.py"

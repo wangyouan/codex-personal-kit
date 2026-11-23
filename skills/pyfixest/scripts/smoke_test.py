@@ -49,7 +49,7 @@ def main():
     Z = np.column_stack([dummies, df["x"], df["z"]])
     X_hat = Z @ np.linalg.lstsq(Z, X_iv, rcond=None)[0]
     beta_iv = np.linalg.solve(X_hat.T @ X_iv, X_hat.T @ df["y_iv"].to_numpy())
-    iv = pf.feols("y_iv ~ x | id + time | endog ~ z", data=df,
+    iv = pf.feols("y_iv ~ x + [endog ~ z] | id + time", data=df,
                   vcov={"CRV1": "id"})
     np.testing.assert_allclose(iv.coef().loc["endog"], beta_iv[-1], rtol=1e-7, atol=1e-8)
 

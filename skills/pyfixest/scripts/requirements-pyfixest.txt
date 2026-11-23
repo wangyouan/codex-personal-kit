@@ -1,1 +1,1 @@
-pyfixest==0.60.0
+pyfixest==0.70.0

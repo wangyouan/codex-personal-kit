@@ -14,10 +14,10 @@ function Find-StataExe {
         if ($command) { return $command.Source }
     }
 
-    foreach ($root in @("C:\\Program Files", "D:\\Program Files", "C:\\Stata", "D:\\Stata")) {
+    foreach ($root in @("C:\Program Files", "D:\Program Files", "C:\Stata", "D:\Stata")) {
         if (-not (Test-Path -LiteralPath $root)) { continue }
         $candidate = Get-ChildItem -LiteralPath $root -Recurse -File -Filter "Stata*.exe" -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -match "Stata(MP|SE|BE)?-?(64)?\\.exe" } |
+            Where-Object { $_.Name -match '^Stata(MP|SE|BE)?-?(64)?\.exe$' } |
             Select-Object -First 1
         if ($candidate) { return $candidate.FullName }
     }
@@ -28,13 +28,13 @@ $resolvedDo = (Resolve-Path -LiteralPath $DoFile).Path
 $resolvedStata = Find-StataExe
 if (-not (Test-Path -LiteralPath $resolvedStata)) { throw "Stata executable not found: $resolvedStata" }
 
-$process = Start-Process -FilePath $resolvedStata -ArgumentList @("/e", "do", $resolvedDo) -Wait -PassThru -WindowStyle Hidden
+$process = Start-Process -FilePath $resolvedStata -ArgumentList @("/e", "do", ('"{0}"' -f $resolvedDo)) -WorkingDirectory (Split-Path -Parent $resolvedDo) -Wait -PassThru -WindowStyle Hidden
 if ($process.ExitCode -ne 0) { throw "Stata exited with code $($process.ExitCode). Check the log next to the do-file." }
 
 $logPath = [System.IO.Path]::ChangeExtension($resolvedDo, ".log")
 if (Test-Path -LiteralPath $logPath) {
     $logText = Get-Content -LiteralPath $logPath -Raw
-    if ($logText -match "r\\([0-9]+\\)") { throw "Stata log contains an r() error. Check: $logPath" }
+    if ($logText -match '(?m)^\s*r\([0-9]+\);?\s*$') { throw "Stata log contains an r() error. Check: $logPath" }
 }
 
 Write-Output "Stata completed: $resolvedDo"

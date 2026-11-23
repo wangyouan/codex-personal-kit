@@ -2,10 +2,11 @@
 
 Use Johannes F. Schmieder's Stata package, which installs both commands. The
 similarly named Leo Liu package is a separate implementation. See the
-[v0.6.0 release](https://github.com/johannes-schmieder/fereg/releases/tag/v0.6.0),
-[installation guide](https://github.com/johannes-schmieder/fereg/blob/v0.6.0/docs/installation.md)
-and [working paper](https://doi.org/10.3386/w36017). Version 0.6.0 is the
-version tested locally; use the recorded project version for replication.
+[v0.6.8 release](https://github.com/johannes-schmieder/fereg/releases/tag/v0.6.8),
+[installation guide](https://github.com/johannes-schmieder/fereg/blob/v0.6.8/docs/installation.md)
+and [working paper](https://doi.org/10.3386/w36017). Version 0.6.8 passed local
+installation and synthetic checks on 2026-11-23; use the recorded project
+version for replication. The older 0.6.0 timing baseline below remains historical.
 
 ## Install and Verify
 
@@ -14,13 +15,13 @@ prevent replacement. Check `which fereg` and `which feppml` before reinstalling.
 If installation is needed and authorized, run:
 
 ```stata
-net install fereg, from("https://raw.githubusercontent.com/johannes-schmieder/fereg/v0.6.0/") replace
+net install fereg, from("https://raw.githubusercontent.com/johannes-schmieder/fereg/v0.6.8/") replace
 which fereg
 which feppml
 fereg, selftest
 ```
 
-If a per-file transfer fails, download the [same official tagged ZIP](https://github.com/johannes-schmieder/fereg/archive/refs/tags/v0.6.0.zip),
+If a per-file transfer fails, download the [same official tagged ZIP](https://github.com/johannes-schmieder/fereg/archive/refs/tags/v0.6.8.zip),
 extract it, and compare the Windows plugin's SHA-256 with
 `dist/fereg_windows.plugin.sha256` from the archive. Point `from()` to the
 extracted folder containing `fereg.pkg` (use its absolute path with forward
@@ -59,6 +60,25 @@ feppml y_count  x1 x2 x3, absorb(firm industry_year) vce(cluster firm)
   budget, alternating command order. Set the Stata/MP processor count and pass
   `threads(#)` explicitly to the new commands for comparable timings. Log
   versions, thread settings, and the solver/convergence messages.
+
+## Local Validation: 2026-11-23
+
+On Windows Stata/MP 18, both commands and the native plugin report 0.6.8;
+`fereg, selftest` passes. A synthetic panel of 2,000 observations, 200 firms
+and 10 periods absorbs firm and year effects and clusters by firm.
+Compared with installed `reghdfe` 6.12.5 and `ppmlhdfe` 2.3.0, samples match
+row by row for both models. Absolute slope/clustered-SE differences are
+1.11e-16/3.47e-18 for OLS and 1.11e-15/8.64e-15 for PPML.
+This is a small correctness check, not a speed benchmark or a validation of
+all supported options and separation cases.
+
+The same check also passed after updating the comparison stack to `ftools`
+2.50.0, `reghdfe` 6.14.1 and `ppmlhdfe` 2.3.4. This `reghdfe` release requires
+`require` >= 1.3.1; `require` 1.4.0 was installed from the author's
+`sergiocorreia/stata-require` repository (default branch, not `master`).
+Install dependencies before claiming a successful upgrade. Preserve prior
+ado files and rerun checks in a fresh Stata session. Source commits and the
+validated scope are recorded in the kit's `docs/package-update-2026-11-23.md`.
 
 ## Local Baseline: 2026-11-17
 
