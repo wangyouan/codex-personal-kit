@@ -17,7 +17,7 @@
 从本文件所在技能目录向上定位共同的 `skills/` 根目录，再读取相邻技能；不要硬编码用户目录：
 
 - `r-econometrics/SKILL.md` 与其 `references/did-event-study.md`：R 方法与运行环境。
-- `stata-regression-workflow/SKILL.md`、`stata-runner/SKILL.md`：Stata 项目和日志检查。
+- `stata-regression-workflow/SKILL.md`：Stata 项目和日志检查。
 - 项目已有 Python 实现时读取 `pyfixest/SKILL.md`，核实已安装版本的实际方法支持；不要将一个 DID 估计器冒充另一个。
 
 沿用项目主要语言，可为一个必要方法使用另一已验证后端。优先核实本地帮助、函数参数和包版本；网络文档用于补充，不能假定本机已具备最新 API。未实际运行的模板只标记为待执行。

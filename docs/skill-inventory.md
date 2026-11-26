@@ -8,6 +8,13 @@ On a new computer, clone this repository, run `scripts/install.ps1 -DryRun`, rev
 
 To capture intentional local changes to managed skills, rules, or global memory, run `scripts/backup-from-codex.ps1 -DryRun`, review the Git diff, and then run it again with `-Apply`. The scripts never commit or push automatically.
 
+## Consolidated Entry Points (2026-11-26)
+
+- Use `stata-regression-workflow` for Stata estimation and execution. `stata-runner` is an explicit-only compatibility alias; its old script path forwards to the canonical runner.
+- Use `systematic-literature-review` in `scope`, `review`, or `alignment` mode. `get-review-theme` and `check-review-alignment` are explicit-only compatibility aliases. Citation backend scripts/config remain at their stable old paths; instructions are maintained in the review references.
+- Use `theoretical-economics-orchestrator` for theory work. The old unmanaged `pAI-Econ-claude` installation is archived outside the active skills directory on this computer, including its research outputs; those outputs are not part of this repository.
+- Compatibility packages remain vendor-managed to preserve old project calls. This is entrypoint consolidation, not removal of the underlying tools.
+
 ## Managed Skills
 
 The repository copies these self-maintained skills into `~/.codex/skills`: `econ-fin-writing`, `format-econ-fin-tables`, `stata-regression-workflow`, `stata-runner`, `r-econometrics`, `pyfixest`, `xmu-mail`, `systematic-literature-review`, `check-review-alignment`, `get-review-theme`, `guide-updater`, `joplin-notes`, and `build-conference-latex-slides`.

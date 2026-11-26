@@ -79,7 +79,7 @@ install_name = "stata-runner"
 source_repo = "wangyouan/codex-personal-kit"
 source_ref = "main"
 exportable = true
-post_install = "Set STATA_EXE locally when auto-discovery cannot find Stata."
+post_install = "Compatibility alias; requires stata-regression-workflow. Use the consolidated entrypoint for new tasks."
 
 [[skill]]
 name = "sec-edgar"
@@ -145,7 +145,7 @@ install_name = "check-review-alignment"
 source_repo = "wangyouan/codex-personal-kit"
 source_ref = "main"
 exportable = true
-post_install = "Requires systematic-literature-review for rendering."
+post_install = "Compatibility alias and stable citation backend; use systematic-literature-review alignment mode. Keep both packages installed."
 
 [[skill]]
 name = "get-review-theme"
@@ -155,7 +155,7 @@ install_name = "get-review-theme"
 source_repo = "wangyouan/codex-personal-kit"
 source_ref = "main"
 exportable = true
-post_install = "none"
+post_install = "Compatibility alias; requires systematic-literature-review. Use the consolidated entrypoint for new tasks."
 
 [[skill]]
 name = "guide-updater"

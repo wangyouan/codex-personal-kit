@@ -1,6 +1,6 @@
 ---
 name: systematic-literature-review
-description: 当用户明确要求"做系统综述/文献综述/related work/相关工作/文献调研"时使用。AI 自定检索词，多源检索→去重→AI 逐篇阅读并评分（1–10分语义相关性与子主题分组）→按高分优先比例选文→自动生成"综/述"字数预算→资深领域专家自由写作（固定摘要/引言/子主题/讨论/展望/结论），保留正文字数与参考文献数硬校验，强制导出 PDF 与 Word。支持多语言翻译与智能编译（en/zh/ja/de/fr/es）。
+description: 文献综述统一入口：从材料提取主题与关键词（scope），检索并生成系统综述或related work（review），核查已有综述的引用语义（alignment）。按任务选择一种模式；只有完整综述生成采用全文与渲染流程。
 
 metadata:
   author: Bensz Conan
@@ -33,6 +33,15 @@ metadata:
 ---
 
 # Systematic Literature Review
+
+## Select the requested mode first
+
+- `scope`: extract a topic, keywords and core question from supplied material. Read [scope mode](references/scope-mode.md), deliver the structured result and stop.
+- `alignment`: check citations in an existing review. Read [alignment mode](references/alignment-mode.md); use the sibling check-review-alignment backend. Checking alone does not authorize rewriting.
+- `review`: discover sources, synthesize and write the review; continue with the existing full workflow below.
+
+Infer the mode from the request; no additional confirmation is needed when clear. Legacy get-review-theme/check-review-alignment names route to scope/alignment. Full-review word-count, citation-count and PDF/Word requirements below apply to review mode only.
+
 
 **最高原则**：AI 不得为赶进度偷懒或短视，必须以最佳可用证据与写作质量完成综述；遇到不确定性需明确说明处理方式。
 

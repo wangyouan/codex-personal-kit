@@ -1,7 +1,6 @@
 interface:
-  display_name: "Stata Runner"
-  short_description: "Run Stata do-files and regression workflows."
-  default_prompt: "Use $stata-runner to run this Stata do-file and summarize the regression results."
-
+  display_name: "stata-runner (compatibility)"
+  short_description: "Compatibility alias for the consolidated workflow"
+  default_prompt: "Use $stata-runner to route this request to its consolidated workflow."
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

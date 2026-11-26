@@ -23,34 +23,11 @@ Use this skill for empirical regression tasks where Stata is part of the workflo
 - For an exact replication, preserve the original command, version and options. Keep `reghdfe` and `ppmlhdfe` as comparison and fallback commands; preserve dedicated estimators for IV, modern DiD, and other designs outside these two model classes.
 - Read [Schmieder fereg and feppml](references/fereg-feppml.md) for the pinned installation, local benchmark, and checks before changing the estimator implementation in a project.
 
-## Finding Stata on Windows
+## Execute Stata on Windows
 
-First check whether a path is already configured:
+The canonical batch runner is [scripts/run_stata.ps1](scripts/run_stata.ps1). It discovers Stata from the supplied executable, STATA_EXE or common installations, starts it hidden, waits and checks the batch log. Invoke with `-DoFile <absolute-path>` and optionally `-StataExe <absolute-path>`. Use the project's working directory and preserve raw data. Do not open a manual log with the same basename as the batch log. Inspect warnings and output completeness even when the runner exits successfully.
 
-```powershell
-$env:STATA_EXE
-Get-Command stata,stata-mp,StataMP-64,StataSE-64,StataBE-64 -ErrorAction SilentlyContinue
-```
-
-If not found, search likely install locations without assuming a fixed version:
-
-```powershell
-Get-ChildItem 'C:\Program Files','D:\Program Files' -Recurse -Filter 'Stata*.exe' -ErrorAction SilentlyContinue | Select-Object -First 20 FullName
-```
-
-Prefer storing the resolved path in a local variable for the current run. Do not hard-code it into project files unless the user asks.
-
-## Running a `.do` File
-
-Use batch mode so Codex can wait for completion and inspect logs:
-
-```powershell
-& $stataExe -b do 'D:\path\to\regression.do'
-```
-
-If a Stata edition does not accept `-b do`, try the edition-specific executable's documented batch syntax. Always use absolute paths for the do file, data files, and output locations when possible.
-
-If the do file relies on working directory, inspect the first lines for `cd`, globals, and path macros. Update paths only after explaining the edit.
+For execution-only requests, run the existing do-file and inspect its log; do not redesign its model. For estimation or data-construction requests, use the methodological sections below. `$stata-runner` and its old script path remain compatibility aliases; maintain execution logic here only.
 
 ## Log Inspection Checklist
 

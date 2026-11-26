@@ -41,4 +41,4 @@ The synthetic validation script can be run without research data:
 & $rscript --vanilla "<skill-dir>/scripts/smoke_test.R"
 ```
 
-It requires `fixest`, `did`, `rdrobust`, and `rddensity`; missing dependencies produce a failure with an explicit list. A missing R runtime is a documented execution limitation, not evidence that a method was tested. Python tasks may use the installed `pyfixest` skill; Stata execution belongs to `stata-runner` / `stata-regression-workflow`.
+It requires `fixest`, `did`, `rdrobust`, and `rddensity`; missing dependencies produce a failure with an explicit list. A missing R runtime is a documented execution limitation, not evidence that a method was tested. Python tasks may use the installed `pyfixest` skill; Stata execution belongs to `stata-regression-workflow`.
