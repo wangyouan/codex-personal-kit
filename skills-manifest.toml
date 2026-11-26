@@ -47,6 +47,17 @@ dependencies = "R; fixest, did, rdrobust, rddensity for core methods; optional p
 post_install = "Detect Rscript or set RSCRIPT_EXE locally; use a project renv library and run scripts/smoke_test.R before relying on a new runtime."
 
 [[skill]]
+name = "auto-mining-did"
+mode = "vendor"
+source_path = "skills/auto-mining-did"
+install_name = "auto-mining-did"
+source_repo = "wangyouan/codex-personal-kit"
+source_ref = "main"
+exportable = true
+dependencies = "Agent-operated workflow; project R/Stata/Python runtime; design-appropriate DID/event-study implementations and applicable HonestDiD. SA/CS/BJS comparisons follow treatment timing and user scope. Uses installed econometrics companion skills when available."
+post_install = "Start with the trial brief and a project/data path. Probe estimator dependencies in the current environment; package presence is not numerical validation. No standalone regression engine or research data are bundled."
+
+[[skill]]
 name = "pyfixest"
 mode = "vendor"
 source_path = "skills/pyfixest"

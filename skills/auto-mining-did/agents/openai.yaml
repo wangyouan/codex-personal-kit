@@ -1,0 +1,4 @@
+interface:
+  display_name: "DID Auto Mining"
+  short_description: "探索 DID 行业与时间窗口候选，完成适配设计的必要检查"
+  default_prompt: "使用 $auto-mining-did 读取我的项目和基准脚本，在声明预算内比较指定行业、观察窗口与指标口径，按处理时点设计选择必要方法，区分主窗口与后续稳健性，先完成基准与趋势检查，按约定阶段安排去趋势和 HonestDiD，并保存完整名单结果与暂缓项。"
